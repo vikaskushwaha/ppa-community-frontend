@@ -1,13 +1,13 @@
 import Image from "next/image";
 import rockect from '../public/resources/images/Rocket.svg'
 
-function Button({ className, children, ImgUrl, altText }) {
+function Button({ className, children, imageUrl, altText }) {
     return (
         <button className={`${className}`}>
             {children}
-            <div className="w-4 h-4 ">
+            <div className="">
                 <Image
-                    src={rockect}
+                    src={imageUrl}
                     alt={altText}
 
                 />
