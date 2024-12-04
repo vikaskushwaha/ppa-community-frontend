@@ -42,3 +42,7 @@
     /* Adjust weight as needed */
     font-style: normal;
 }
+
+html {
+    font-size: 14px
+}
