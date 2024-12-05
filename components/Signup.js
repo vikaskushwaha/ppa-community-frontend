@@ -3,9 +3,11 @@
 import Button from './Button';
 import Image from 'next/image';
 import rockect from '../public/resources/images/Rocket.svg'
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import axios from 'axios';
+import { Authcontext } from '@/context/UserContext';
 function SignupForm() {
+    const { signUp, logIn } = useContext(Authcontext)
     const [signedUp, setSignUp] = useState(true)
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -21,20 +23,16 @@ function SignupForm() {
         setPhone(e.target.value)
     }
 
-    async function handleSubmit(e) {
+    async function handleSignUpSubmit(e) {
         e.preventDefault();
-        const formData = {
-            name,
-            email,
-            phone
-        }
-        try {
-            const respose = await axios.post("http://localhost:2000/auth/signup", formData)
-            setResponseMessage(response.data.message || "Signup successful!");
-        } catch (error) {
-            error.response?.data?.message || "An error occurred while signing up."
-        }
+        await signUp(name, email, phone)
     }
+
+    async function handleLogInSubmit(e) {
+        e.preventDefault();
+        await logIn(email)
+    }
+
     const toggleTab = (index) => {
         console.log(index);
 
@@ -61,7 +59,7 @@ function SignupForm() {
                 </div>
                 <div>
                     <div className="flex flex-col gap-3">
-                        <form className=" flex flex-col gap-3" onSubmit={handleSubmit}>
+                        <form className=" flex flex-col gap-3" onSubmit={signedUp ? handleSignUpSubmit : handleLogInSubmit}>
                             {signedUp && (
                                 <div className="flex flex-col gap-2">
                                     <label htmlFor="name" className="text-[1rem] font-gilroysemibold leading-6 tracking-wide text-white">

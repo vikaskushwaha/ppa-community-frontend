@@ -2,7 +2,6 @@ import Image from "next/image"
 
 function PointsEarnedCard({ index, activity, img }) {
     console.log(activity);
-
     return (
         <div className="flex ">
             <div className="flex flex-col  rounded-[0.375rem] py-3 px-3 bg-[#3A3C43] items-center justify-center">
