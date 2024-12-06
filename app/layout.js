@@ -1,5 +1,8 @@
+
 import localFont from "next/font/local";
 import "./globals.css";
+
+import { UserProvider } from "@/context/UserContext";
 
 
 export const metadata = {
@@ -9,10 +12,15 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
+
     <html lang="en">
+
       <body>
-        {children}
+        <UserProvider>
+          {children}
+        </UserProvider>
       </body>
     </html>
+
   );
 }

@@ -1,6 +1,9 @@
 import Button from "./Button";
-
+import { Authcontext } from "@/context/UserContext";
+import { useContext } from "react";
 function ReferralLink() {
+    const { user } = useContext(Authcontext)
+
     return (
         <div className="">
             <h2 className="text-[1.25rem] font-gilroybold leading-[1.75rem] tracking-wide text-[#F8FAFC]">
@@ -8,7 +11,7 @@ function ReferralLink() {
             </h2>
             <div className=" flex  rounded-[1rem] p-2 gap-[0.4375rem] bg-[#E1E7F8]">
                 <input
-                    value={"www.programmingpathsala.com"}
+                    value={user ? `${user.message.ShortenedLink}` : "programming.com"}
                     disabled
                     className="bg-[#FFFF] py-3 px-6 w-[25rem]"
                 />

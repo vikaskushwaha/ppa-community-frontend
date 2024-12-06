@@ -1,15 +1,22 @@
-import Image from "next/image";
+'use client'
 import CommunityBanner from "@/components/CommunityBanner";
 import RewardSystem from "@/components/RewardSystem";
-import WinSection from "@/components/WinSection";
-import VideoSection from "@/components/VideoSection";
+
+import { useState, useContext } from "react";
+import { UserProvider, Authcontext } from "@/context/UserContext";
 export default function Home() {
+  const { user, setUser, isLoggedIn, setLoggedIn } = useContext(Authcontext)
+  console.log("user", user);
+
   return (
     <div className="flex flex-col w-full">
-      <CommunityBanner />
-      <RewardSystem />
-      <VideoSection />
-      <WinSection/>
+      {isLoggedIn && user ? (<RewardSystem />) : (<div> <CommunityBanner /> <RewardSystem /></div>)}
+      {/* <CommunityBanner /> */}
+      {/* {!isLoggedIn && <CommunityBanner />}
+      <RewardSystem /> */}
+
+
+
     </div>
   );
 }
