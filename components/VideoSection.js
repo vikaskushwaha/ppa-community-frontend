@@ -10,13 +10,6 @@ const VideoSection = () => {
     const handleClick = () => {
         setIsChecked(!isChecked);
     };
-    // console.log(VideoPlayerConstants);
-    // const videoList = [
-    //     { id: 1, title: "Marvolo Gaunt's Ring Part-1", duration: "16 mins" },
-    //     { id: 2, title: "Marvolo Gaunt's Ring Part-2", duration: "16 mins" },
-    //     { id: 3, title: "Marvolo Gaunt's Ring Part-3", duration: "16 mins" },
-    //     { id: 4, title: "Marvolo Gaunt's Ring Part-4", duration: "16 mins" },
-    // ];
 
     return (
         <div className="flex h-screen bg-[#14171F] py-[20px] text-white">
