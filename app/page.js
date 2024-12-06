@@ -14,9 +14,6 @@ export default function Home() {
       {/* <CommunityBanner /> */}
       {/* {!isLoggedIn && <CommunityBanner />}
       <RewardSystem /> */}
-
-
-
     </div>
   );
 }
