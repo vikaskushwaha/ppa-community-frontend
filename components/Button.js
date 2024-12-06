@@ -1,9 +1,9 @@
 import Image from "next/image";
 import rockect from '../public/resources/images/Rocket.svg'
 
-function Button({ className, children, imageUrl, altText, width, height, signedUp }) {
+function Button({ className, children, imageUrl, altText, width, height, signedUp, onClick }) {
     return (
-        <button className={`${className}`}>
+        <button className={`${className}`} onClick={onClick} >
             {children}
             <div className="">
                 {signedUp ? <Image
