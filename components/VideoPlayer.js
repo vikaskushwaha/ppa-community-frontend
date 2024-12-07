@@ -1,100 +1,98 @@
 'use client';
-import { useEffect, useState } from 'react';
 
-const VideoPlayer = ({ videoId }) => {
-  const [player, setPlayer] = useState(null); // State to store the YouTube Player instance
-  const [hasWatched70, setHasWatched70] = useState(false); // State to track if 70% of the video is watched
+import { useEffect, useRef, useState } from 'react';
+import YouTubePlayer from 'youtube-player';
+
+const VideoPlayer = ({ videoId, onThresholdReached }) => {
+  const [isWatch70, setWatch70] = useState(false);
+  const playerRef = useRef(null);
+  const watchedTimeRef = useRef(0);
+  const lastTimeRef = useRef(0);
+  const playbackRateRef = useRef(1);
+  const intervalIdRef = useRef(null);
+  const isWatch70Ref = useRef(false); // Ref to track the watch status
 
   useEffect(() => {
-    // Function to load the YouTube IFrame API
-    const loadYouTubeAPI = () => {
-      if (window.YT && window.YT.Player) {
-        initializePlayer(); // If API is already available, initialize the player
-      } else {
-        const script = document.createElement('script');
-        script.src = 'https://www.youtube.com/iframe_api'; // Load the YouTube API script
-        script.async = true;
-        document.body.appendChild(script);
+    // Initialize the YouTube player
 
-        window.onYouTubeIframeAPIReady = () => {
-          initializePlayer(); // Initialize the player when API is ready
-        };
-      }
-    };
+    watchedTimeRef.current = 0;
+    lastTimeRef.current = 0;
+    playbackRateRef.current = 1;
+    isWatch70Ref.current = false;
+    setWatch70(false);
+    
+    const player = YouTubePlayer('video-player', {
+      videoId,
+      playerVars: { autoplay: 0, controls: 1 }, // Customize player options
+    });
 
-    // Function to initialize the YouTube Player
-    const initializePlayer = () => {
-      const ytPlayer = new YT.Player('youtube-player', {
-        videoId: videoId, // Video ID to play
-        playerVars: {
-          controls: 1, // Show controls (can change to 0 to hide)
-          modestbranding: 1, // Disable YouTube branding
-          rel: 0, // Disable related videos at the end
-        },
-        events: {
-          onStateChange: onPlayerStateChange, // Event listener for state changes
-        },
-      });
-      setPlayer(ytPlayer); // Store the player instance in the state
-    };
+    playerRef.current = player;
 
-    // Event listener for player state changes
-    const onPlayerStateChange = (event) => {
-      if (event.data === YT.PlayerState.PLAYING && !hasWatched70) {
-        startProgressTracking(); // Start tracking progress when the video is playing
-      }
-    };
+    // Track progress at regular intervals
+    const trackProgress = async () => {
+      if (playerRef.current && !isWatch70Ref.current) {
+        try {
+          const currentTime = await player.getCurrentTime();
+          const elapsedTime = (currentTime - lastTimeRef.current) * playbackRateRef.current;
 
-    // Function to track video progress
-    const startProgressTracking = () => {
-      const interval = setInterval(() => {
-        if (player && player.getPlayerState() === YT.PlayerState.PLAYING) {
-          const currentTime = player.getCurrentTime(); // Current playback time
-          const duration = player.getDuration(); // Total video duration
-          const percentageWatched = (currentTime / duration) * 100; // Calculate watched percentage
-
-          if (percentageWatched >= 70 && !hasWatched70) {
-            clearInterval(interval); // Stop tracking when 70% is reached
-            console.log('User watched 70% of the video');
-            // updateWatchProgress(70); 
-            // Optionally update the server
-            setHasWatched70(true); // Update the state
+          if (elapsedTime > 0) {
+            watchedTimeRef.current += elapsedTime;
           }
+
+          lastTimeRef.current = currentTime;
+
+          const duration = await player.getDuration();
+          if (watchedTimeRef.current >= 0.2 * duration) {
+            isWatch70Ref.current = true; // Update the ref
+            setWatch70(true); // Update state to trigger re-render
+            console.log("User has watched 70% of the video.");
+            onThresholdReached(); // Call the callback
+            clearInterval(intervalIdRef.current); // Stop tracking
+          }
+        } catch (error) {
+          console.error("Error tracking progress:", error);
         }
-      }, 1000); // Check progress every second
+      }
     };
 
-    // Function to update watch progress on the server (optional)
-    const updateWatchProgress = (progress) => {
-      fetch('/api/update-watch-progress', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ videoId, progress }), // Send video ID and progress
-      })
-        .then((res) => res.json())
-        .then((data) => console.log('Watch progress updated:', data))
-        .catch((err) => console.error('Error updating watch progress:', err));
-    };
+    // Handle playback rate changes
+    player.on('playbackRateChange', (event) => {
+      playbackRateRef.current = event.data || 1; // Default to 1x speed
+    });
 
-    loadYouTubeAPI(); // Load the YouTube API when the component is mounted
+    // Handle player state changes
+    player.on('stateChange', async (event) => {
+      if (event.data === 1) {
+        // Video is playing
+        lastTimeRef.current = await player.getCurrentTime();
+        if (!intervalIdRef.current && !isWatch70Ref.current) {
+          intervalIdRef.current = setInterval(trackProgress, 500); // Check progress every 500ms
+        }
+      } else if (event.data === 2 || event.data === 0) {
+        // Video is paused or ended
+        clearInterval(intervalIdRef.current);
+        intervalIdRef.current = null;
+      }
+    });
 
+    // Cleanup on component unmount
     return () => {
-      // Clean up the YouTube Player and interval
-      if (player) player.destroy();
+      clearInterval(intervalIdRef.current);
+      if (playerRef.current) {
+        playerRef.current.destroy();
+        playerRef.current = null;
+      }
     };
-  }, [videoId, hasWatched70]); // Re-run effect when dependencies change
+  }, [videoId]);
 
   return (
     <div
-      id="youtube-player"
-      className="w-full h-full"
+      id="video-player"
       style={{
         width: '100%',
         height: '100%',
-        borderRadius: '24px', // Add rounded corners to the iframe
-        overflow: 'hidden', // Prevent overflow
+        borderRadius: '24px',
+        overflow: 'hidden',
       }}
     ></div>
   );
