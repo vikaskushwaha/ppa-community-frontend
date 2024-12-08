@@ -46,3 +46,20 @@
 html {
     font-size: 14px
 }
+
+@layer utilities {
+  .scrollbar-custom {
+    scrollbar-width: 12px; /* For Firefox */
+    scrollbar-color: #292C33 #3A3C43; /* Thumb and track colors */
+  }
+  .scrollbar-custom::-webkit-scrollbar {
+    width: 12px;
+  }
+  .scrollbar-custom::-webkit-scrollbar-thumb {
+    background-color: #292C33; /* Thumb color */
+    border-radius: 4px; /* Rounded corners */
+  }
+  .scrollbar-custom::-webkit-scrollbar-track {
+    background: #3A3C43; /* Track color */
+  }
+}

@@ -2,12 +2,15 @@ import React from 'react'
 
 function SideBar({Videos, handleCurrentVideo, currentVideo}) {
     return (
-        <div className="w-1/4 bg-[#292C33] rounded-e-[20px] p-4 overflow-y-auto">
-            <h2 className="text-lg font-bold mb-4">25/100 Videos</h2>
+        <div className="w-1/4 bg-[#292C33] rounded-e-[20px] p-4">
+            <div className='flex justify-between'>
+                <h2 className="text-lg font-gilroybold mb-4 text-[16px] leading-[24px] tracking-wide text-[#ffffff]">25/100 Videos</h2>
+                <p className='font-gilroyregular text-[#FFFFFF] text-[14px] leading-[20px] tracking-wide'>25% Completed</p>
+            </div>
             <div className="h-2 w-full bg-[#3A3C43] rounded">
                 <div className="h-2 bg-[#14171F] rounded" style={{ width: "50%" }}></div>
             </div>
-            <div className="space-y-4 mt-[20px]">
+            <div className="space-y-4 mt-[20px] w-full h-[490px] pr-[12px] overflow-y-auto scrollbar-custom">
                 {Videos.map((video, index) => (
                     <div
                         key={video.id}
@@ -19,12 +22,12 @@ function SideBar({Videos, handleCurrentVideo, currentVideo}) {
 
                     >
                         <div className="flex justify-between items-center">
-                            <p className="font-semibold">{video.title}</p>
+                            <p className="font-semibold w-10/12 text-[14px] leading-[20px] text-wrap tracking-wide text-[#ffffff]">{video.title}</p>
                             <div
-                                className="flex items-center justify-center w-10 h-10 bg-gray-800 rounded-full cursor-pointer transition-all duration-300 hover:scale-105"
+                                className="flex items-center justify-center w-5 h-5 bg-gray-800 rounded-full cursor-pointer transition-all duration-300 hover:scale-105"
                             >
                                 {(video.isWatched) ? (
-                                    <div className="flex items-center justify-center w-10 h-10 bg-green-500 rounded-full animate-scale-up">
+                                    <div className="flex items-center justify-center w-5 h-5 bg-green-500 rounded-full animate-scale-up">
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             className="w-6 h-6 text-white"
@@ -39,25 +42,15 @@ function SideBar({Videos, handleCurrentVideo, currentVideo}) {
                                         </svg>
                                     </div>
                                 ) : (
-                                    <div className="w-10 h-10 border-2 border-dashed border-[#F1F5F9] bg-[#292C33] rounded-full animate-pulse"></div>
+                                    <div className="w-5 h-5 border-2 border-dashed border-[#F1F5F9] bg-[#292C33] rounded-full animate-pulse"></div>
                                 )}
                             </div>
                         </div>
-                        <p className="text-sm">{video.duration}</p>
-
-                        {/* <div className="mt-2">
-    {index === currentVideo ? (
-      <span className="text-green-400">✓ Watched</span>
-    ) : (
-      <div className="h-1 w-full bg-gray-600 rounded">
-        <div className="h-1 bg-yellow-500 rounded" style={{ width: "50%" }}></div>
-      </div>
-    )}
-  </div> */}
+                        <p className="mt-[4px] text-[12px] leading-[12px] font-gilroymedium tracking-wide text-[#CBD5E1]">{video.duration}</p>
                     </div>
                 ))}
             </div>
-            <button className="w-full bg-yellow-500 text-black font-semibold py-2 mt-4 rounded hover:bg-yellow-600">
+            <button className="mt-[30px] w-full bg-[#FBBF24] text-[#020617] font-semibold text-[16px] leading-[24px] py-3 mt-4 rounded-[12px] hover:bg-yellow-600">
                 Check Points
             </button>
         </div>
