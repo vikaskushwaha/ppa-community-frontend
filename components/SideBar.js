@@ -1,10 +1,17 @@
 import React from 'react'
+import { Authcontext } from '@/context/UserContext'
+import { useContext } from 'react'
+import Button from './Button';
 
 function SideBar({Videos, handleCurrentVideo, currentVideo}) {
+    const { user } = useContext(Authcontext)
+
+    const no_of_watchedVidos = user?.usersInfo?.ListOfWatchedVideos || [];
+
     return (
         <div className="w-1/4 bg-[#292C33] rounded-e-[20px] p-4">
             <div className='flex justify-between'>
-                <h2 className="text-lg font-gilroybold mb-4 text-[16px] leading-[24px] tracking-wide text-[#ffffff]">25/100 Videos</h2>
+                <h2 className="text-lg font-gilroybold mb-4 text-[16px] leading-[24px] tracking-wide text-[#ffffff]">{!no_of_watchedVidos ? `${0}` : `${no_of_watchedVidos.length}/111 Videos`}</h2>
                 <p className='font-gilroyregular text-[#FFFFFF] text-[14px] leading-[20px] tracking-wide'>25% Completed</p>
             </div>
             <div className="h-2 w-full bg-[#3A3C43] rounded">
@@ -50,9 +57,9 @@ function SideBar({Videos, handleCurrentVideo, currentVideo}) {
                     </div>
                 ))}
             </div>
-            <button className="mt-[30px] w-full bg-[#FBBF24] text-[#020617] font-semibold text-[16px] leading-[24px] py-3 mt-4 rounded-[12px] hover:bg-yellow-600">
+            <Button onClick={() => getTotalPoints} className="mt-[30px] w-full bg-[#FBBF24] text-[#020617] font-semibold text-[16px] leading-[24px] py-3 mt-4 rounded-[12px] hover:bg-yellow-600">
                 Check Points
-            </button>
+            </Button>
         </div>
     )
 }
