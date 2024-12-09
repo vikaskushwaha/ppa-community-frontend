@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from 'react';
 import YouTubePlayer from 'youtube-player';
 
 const VideoPlayer = ({ videoId, onThresholdReached }) => {
-  const [isWatch70, setWatch70] = useState(false);
   const playerRef = useRef(null);
   const watchedTimeRef = useRef(0);
   const lastTimeRef = useRef(0);
@@ -19,7 +18,6 @@ const VideoPlayer = ({ videoId, onThresholdReached }) => {
     lastTimeRef.current = 0;
     playbackRateRef.current = 1;
     isWatch70Ref.current = false;
-    setWatch70(false);
     
     const player = YouTubePlayer('video-player', {
       videoId,
@@ -44,7 +42,6 @@ const VideoPlayer = ({ videoId, onThresholdReached }) => {
           const duration = await player.getDuration();
           if (watchedTimeRef.current >= 0.2 * duration) {
             isWatch70Ref.current = true; // Update the ref
-            setWatch70(true); // Update state to trigger re-render
             console.log("User has watched 70% of the video.");
             onThresholdReached(); // Call the callback
             clearInterval(intervalIdRef.current); // Stop tracking
