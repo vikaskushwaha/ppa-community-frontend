@@ -17,10 +17,9 @@ export function UserProvider({ children }) {
         try {
 
             const response = await axios.get("http://localhost:2000/api/welcome", {
-                withCredentials: true
+                withCredentials: true,
             })
-
-            console.log("responseData", response.data);
+            console.log("listOfWatchtd", response.data.usersInfo.ListOfWatchedVideos);
 
             if (response.data) {
                 setUser(response.data)
@@ -38,12 +37,10 @@ export function UserProvider({ children }) {
             const response = await axios.post("http://localhost:2000/auth/signup",
                 { name, email, phone },
                 { withCredentials: true },
+
+
             );
             fetchUserDetails()
-            if (response.data) {
-                setUser(response.data)
-                setLoggedIn(true)
-            }
 
         } catch (error) {
             setUser(null)
@@ -52,16 +49,12 @@ export function UserProvider({ children }) {
     }
     async function logIn(email) {
         try {
+            console.log("hi from login");
             const response = await axios.post("http://localhost:2000/auth/login",
                 { email },
                 { withCredentials: true },
             );
-            console.log("form login response: data", response.data);
             fetchUserDetails()
-            if (response.data) {
-                setUser(response.data)
-                setLoggedIn(true)
-            }
         } catch (error) {
             setUser(null)
             setLoggedIn(false);

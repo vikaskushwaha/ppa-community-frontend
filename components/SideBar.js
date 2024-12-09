@@ -1,9 +1,18 @@
 import React from 'react'
+import { Authcontext } from '@/context/UserContext'
+import { useContext } from 'react'
+import Button from './Button';
+function SideBar({ Videos, handleCurrentVideo, currentVideo }) {
+    const { user } = useContext(Authcontext)
+    console.log("from sidebar ", user);
 
-function SideBar({Videos, handleCurrentVideo, currentVideo}) {
+    const no_of_watchedVidos = user?.usersInfo?.ListOfWatchedVideos || [];
+
+
+
     return (
         <div className="w-1/4 bg-[#292C33] rounded-e-[20px] p-4 overflow-y-auto">
-            <h2 className="text-lg font-bold mb-4">25/100 Videos</h2>
+            <h2 className="text-lg font-bold mb-4">{!no_of_watchedVidos ? `${0}` : `${no_of_watchedVidos.length}`}/111 Videos</h2>
             <div className="h-2 w-full bg-[#3A3C43] rounded">
                 <div className="h-2 bg-[#14171F] rounded" style={{ width: "50%" }}></div>
             </div>
@@ -57,9 +66,12 @@ function SideBar({Videos, handleCurrentVideo, currentVideo}) {
                     </div>
                 ))}
             </div>
-            <button className="w-full bg-yellow-500 text-black font-semibold py-2 mt-4 rounded hover:bg-yellow-600">
+            <Button
+                className="w-full bg-yellow-500 text-black font-semibold py-2 mt-4 rounded hover:bg-yellow-600"
+                onClick={() => getTotalPoints}
+            >
                 Check Points
-            </button>
+            </Button>
         </div>
     )
 }
