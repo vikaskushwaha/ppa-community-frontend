@@ -10,11 +10,10 @@ const VideoSection = () => {
     const [videos, setVideos] = useState([...Videos]);
     const [currentVideo, setCurrentVideo] = useState(0);
     const [videoId, setVideoId] = useState(Videos[currentVideo].videoId);
-    const [watchedCount, setWatchedCount] = useState(0);
 
     const handleCurrentVideo = (index) => {
         setCurrentVideo(index);
-        setVideoId(videos[currentVideo].videoId);
+        setVideoId(videos[index].videoId);
         console.log(index);
     }
 
@@ -42,15 +41,10 @@ const VideoSection = () => {
         }
       };
 
-      useEffect(() => {
-        const count = videos.filter((video) => video.isWatched).length;
-        setWatchedCount(count);
-    }, [videos]);
-
     return (
         <div className="flex h-screen bg-[#14171F] py-[20px] text-white">
             {/* Sidebar */}
-            <SideBar Videos={videos} handleCurrentVideo={handleCurrentVideo} currentVideo={currentVideo} watchedCount={watchedCount} />
+            <SideBar Videos={videos} handleCurrentVideo={handleCurrentVideo} currentVideo={currentVideo} />
             {/* Main Content */}
             <div className="flex-1 flex flex-col">
                 {/* Header */}
