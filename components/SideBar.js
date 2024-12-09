@@ -23,7 +23,7 @@ function SideBar({Videos, handleCurrentVideo, currentVideo}) {
                         key={video.id}
                         className={`p-3 rounded-lg ${index === currentVideo
                             ? "bg-[#14171F]"
-                            : "bg-[#292C33] hover:bg-[#14171F]"
+                            : "bg-[#292C33] hover:bg-[#3A3C43]"
                             } cursor-pointer`}
                         onClick={() => { handleCurrentVideo(index) }}
 

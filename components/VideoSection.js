@@ -29,17 +29,19 @@ const VideoSection = () => {
 
     const handleNext = () => {
         if (currentVideo < videos.length - 1) {
-            setCurrentVideo(currentVideo + 1);
-            setVideoId(videos[currentVideo].videoId);
+            const nextVideoIndex = currentVideo + 1; // Calculate the next video index
+            setCurrentVideo(nextVideoIndex); // Update current video index
+            setVideoId(videos[nextVideoIndex].videoId); // Update videoId immediately
         }
-      };
+    };    
     
-      const handlePrev = () => {
+    const handlePrev = () => {
         if (currentVideo > 0) {
-            setCurrentVideo(currentVideo - 1);
-            setVideoId(videos[currentVideo].videoId);
+            const prevVideoIndex = currentVideo - 1; // Calculate the previous video index
+            setCurrentVideo(prevVideoIndex); // Update current video index
+            setVideoId(videos[prevVideoIndex].videoId); // Update videoId immediately
         }
-      };
+    };
 
     return (
         <div className="flex h-screen bg-[#14171F] py-[20px] text-white">
