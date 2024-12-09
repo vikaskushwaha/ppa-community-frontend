@@ -14,7 +14,7 @@ function ReferralLink() {
             </h2>
             <div className=" flex  rounded-[1rem] p-2 gap-[0.4375rem] bg-[#E1E7F8]">
                 <input
-                    value={user ? `${user.message.ShortenedLink}` : "programming.com"}
+                    value={user?.usersInfo?.ShortenedLink || "programming.com"}
                     disabled
                     className="bg-[#FFFF] py-3 px-6 w-[25rem]"
                     ref={textRef}
