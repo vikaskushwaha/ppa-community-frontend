@@ -11,6 +11,9 @@ const VideoSection = () => {
     const [currentVideo, setCurrentVideo] = useState(0);
     const [videoId, setVideoId] = useState(Videos[currentVideo].videoId);
 
+    // const watchedVideos=[1,2,3];
+    // console.log(Videos)
+
     const handleCurrentVideo = (index) => {
         setCurrentVideo(index);
         setVideoId(videos[index].videoId);
@@ -19,6 +22,7 @@ const VideoSection = () => {
 
     const handleThresholdReached = () => {
         Videos[currentVideo].isWatched=true;
+        
         setVideos((prevVideos) =>
             prevVideos.map((video, i) =>
                 i === currentVideo ? { ...video, isWatched: true } : video
@@ -46,7 +50,7 @@ const VideoSection = () => {
     return (
         <div className="flex h-screen bg-[#14171F] py-[20px] text-white">
             {/* Sidebar */}
-            <SideBar Videos={videos} handleCurrentVideo={handleCurrentVideo} currentVideo={currentVideo} />
+            <SideBar Videos={Videos} handleCurrentVideo={handleCurrentVideo} currentVideo={currentVideo} />
             {/* Main Content */}
             <div className="flex-1 flex flex-col">
                 {/* Header */}

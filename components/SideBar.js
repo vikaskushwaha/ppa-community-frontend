@@ -13,6 +13,7 @@ function SideBar({ Videos, handleCurrentVideo, currentVideo }) {
         await fetchUsersTotalPoints();
 
     }
+    console.log(Videos)
     useEffect(() => {
         if (totalPoints) {
             setButtonTxt(`Total Points: ${totalPoints.TotalPoints} Points`)
