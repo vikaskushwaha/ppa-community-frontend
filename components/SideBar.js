@@ -1,10 +1,8 @@
-
-
 import { React, useState, useEffect } from 'react'
 import { Authcontext } from '@/context/UserContext'
 import { useContext } from 'react'
 import Button from './Button';
-import { useGetUserPoints } from '@/hooks/useGetTotalUserPoints';
+import { useGetUserPoints } from '@/hooks/useGetTotalUserPoints'
 
 function SideBar({ Videos, handleCurrentVideo, currentVideo }) {
     const { totalPoints, fetchUsersTotalPoints } = useGetUserPoints();
@@ -83,5 +81,3 @@ function SideBar({ Videos, handleCurrentVideo, currentVideo }) {
 }
 
 export default SideBar
-
-
