@@ -1,10 +1,24 @@
-import React from 'react'
+import { React, useState, useEffect } from 'react'
 import { Authcontext } from '@/context/UserContext'
 import { useContext } from 'react'
 import Button from './Button';
+import { useGetUserPoints } from '@/hooks/useGetTotalUserPoints';
 
-function SideBar({Videos, handleCurrentVideo, currentVideo}) {
+function SideBar({ Videos, handleCurrentVideo, currentVideo }) {
+    const { totalPoints, fetchUsersTotalPoints } = useGetUserPoints();
+    const [buttonTxt, setButtonTxt] = useState("Check Points")
     const { user } = useContext(Authcontext)
+
+    async function handleOnclick() {
+        await fetchUsersTotalPoints();
+
+    }
+    useEffect(() => {
+        if (totalPoints) {
+            setButtonTxt(`Total Points: ${totalPoints.TotalPoints} Points`)
+        }
+
+    }, [totalPoints])
 
     const no_of_watchedVidos = user?.usersInfo?.ListOfWatchedVideos || [];
 
@@ -17,7 +31,7 @@ function SideBar({Videos, handleCurrentVideo, currentVideo}) {
             <div className="h-2 w-full bg-[#3A3C43] rounded">
                 <div className="h-2 bg-[#14171F] rounded" style={{ width: "50%" }}></div>
             </div>
-            <div className="space-y-4 mt-[20px] w-full h-[490px] pr-[12px] overflow-y-auto scrollbar-custom">
+            <div className="space-y-4 mt-[20px] w-full h-[77%] pr-[12px] overflow-y-auto scrollbar-custom">
                 {Videos.map((video, index) => (
                     <div
                         key={video.id}
@@ -57,8 +71,11 @@ function SideBar({Videos, handleCurrentVideo, currentVideo}) {
                     </div>
                 ))}
             </div>
-            <Button onClick={() => getTotalPoints} className="mt-[30px] w-full bg-[#FBBF24] text-[#020617] font-semibold text-[16px] leading-[24px] py-3 mt-4 rounded-[12px] hover:bg-yellow-600">
-                Check Points
+            <Button
+                className="mt-[30px] w-full bg-[#FBBF24] text-[#020617] font-semibold text-[16px] leading-[24px] py-3 mt-4 rounded-[12px] hover:bg-yellow-600"
+                onClick={handleOnclick}
+            >
+                {buttonTxt}
             </Button>
         </div>
     )
