@@ -1,10 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Authcontext } from '@/context/UserContext'
 import { useContext } from 'react'
 import Button from './Button';
+import { useGetUserPoints } from '@/hooks/useGetTotalUserPoints';
 function SideBar({ Videos, handleCurrentVideo, currentVideo }) {
+    const { totalPoints, fetchUsersTotalPoints } = useGetUserPoints();
+    const [buttonTxt, setButtonTxt] = useState("Check Points")
     const { user } = useContext(Authcontext)
-    console.log("from sidebar ", user);
+
+    async function handleOnclick() {
+        await fetchUsersTotalPoints();
+        if (totalPoints) {
+            setButtonTxt(`Total Points: ${totalPoints.TotalPoints} Points`)
+        }
+
+    }
 
     const no_of_watchedVidos = user?.usersInfo?.ListOfWatchedVideos || [];
 
@@ -68,9 +78,9 @@ function SideBar({ Videos, handleCurrentVideo, currentVideo }) {
             </div>
             <Button
                 className="w-full bg-yellow-500 text-black font-semibold py-2 mt-4 rounded hover:bg-yellow-600"
-                onClick={() => getTotalPoints}
+                onClick={handleOnclick}
             >
-                Check Points
+                {buttonTxt}
             </Button>
         </div>
     )
