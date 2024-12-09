@@ -1,46 +1,56 @@
 'use client'
 import { FaChevronRight } from "react-icons/fa";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import VideoPlayer from "./VideoPlayer.js";
 import { FaArrowLeft } from 'react-icons/fa';
 import {Videos} from '../constants/VideoPlayerConstants'
 import SideBar from "./SideBar.js";
 
 const VideoSection = () => {
+    const [videos, setVideos] = useState([...Videos]);
     const [currentVideo, setCurrentVideo] = useState(0);
     const [videoId, setVideoId] = useState(Videos[currentVideo].videoId);
-    // const [isChecked, setIsChecked] = useState(false);
+    const [watchedCount, setWatchedCount] = useState(0);
 
     const handleCurrentVideo = (index) => {
         setCurrentVideo(index);
-        setVideoId(Videos[currentVideo].videoId);
+        setVideoId(videos[currentVideo].videoId);
         console.log(index);
     }
 
     const handleThresholdReached = () => {
-        // setIsChecked(!isChecked);
         Videos[currentVideo].isWatched=true;
+        setVideos((prevVideos) =>
+            prevVideos.map((video, i) =>
+                i === currentVideo ? { ...video, isWatched: true } : video
+            )
+        );
         console.log("User watched 20% of the video.");
     };
 
     const handleNext = () => {
-        if (currentVideo < Videos.length - 1) {
+        if (currentVideo < videos.length - 1) {
             setCurrentVideo(currentVideo + 1);
-            setVideoId(Videos[currentVideo].videoId);
+            setVideoId(videos[currentVideo].videoId);
         }
       };
     
       const handlePrev = () => {
         if (currentVideo > 0) {
             setCurrentVideo(currentVideo - 1);
-            setVideoId(Videos[currentVideo].videoId);
+            setVideoId(videos[currentVideo].videoId);
         }
       };
+
+      useEffect(() => {
+        const count = videos.filter((video) => video.isWatched).length;
+        setWatchedCount(count);
+    }, [videos]);
 
     return (
         <div className="flex h-screen bg-[#14171F] py-[20px] text-white">
             {/* Sidebar */}
-            <SideBar Videos={Videos} handleCurrentVideo={handleCurrentVideo} currentVideo={currentVideo}/>
+            <SideBar Videos={videos} handleCurrentVideo={handleCurrentVideo} currentVideo={currentVideo} watchedCount={watchedCount} />
             {/* Main Content */}
             <div className="flex-1 flex flex-col">
                 {/* Header */}

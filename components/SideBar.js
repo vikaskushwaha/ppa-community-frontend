@@ -1,6 +1,6 @@
 import React from 'react'
 
-function SideBar({Videos, handleCurrentVideo, currentVideo}) {
+function SideBar({Videos, handleCurrentVideo, currentVideo, watchedCount}) {
     return (
         <div className="w-1/4 bg-[#292C33] rounded-e-[20px] p-4">
             <div className='flex justify-between'>
