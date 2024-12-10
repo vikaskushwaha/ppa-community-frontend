@@ -1,30 +1,41 @@
 'use client'
 import { FaChevronRight } from "react-icons/fa";
-import { useState, useEffect } from "react";
+import { useState, useEffect, use, useContext } from "react";
 import VideoPlayer from "./VideoPlayer.js";
 import { FaArrowLeft } from 'react-icons/fa';
-import {Videos} from '../constants/VideoPlayerConstants'
+import { Videos } from '../constants/VideoPlayerConstants'
 import SideBar from "./SideBar.js";
+import { usePostWatchedVideos } from "@/hooks/usePostWatchedVideos.js";
+import { Authcontext } from "@/context/UserContext.js";
 
 const VideoSection = () => {
+    const { setWatchedVidoId } = useContext(Authcontext)
+    const { postWatchedVideo } = usePostWatchedVideos();
+
     const [videos, setVideos] = useState([...Videos]);
     const [currentVideo, setCurrentVideo] = useState(0);
     const [videoId, setVideoId] = useState(Videos[currentVideo].videoId);
-
     const handleCurrentVideo = (index) => {
         setCurrentVideo(index);
         setVideoId(videos[index].videoId);
         console.log(index);
     }
 
-    const handleThresholdReached = () => {
-        Videos[currentVideo].isWatched=true;
+    const handleThresholdReached = async (VideoData) => {
+        Videos[currentVideo].isWatched = true;
+
+
         setVideos((prevVideos) =>
             prevVideos.map((video, i) =>
                 i === currentVideo ? { ...video, isWatched: true } : video
             )
         );
         console.log("User watched 20% of the video.");
+
+        await postWatchedVideo(VideoData)
+        setWatchedVidoId(VideoData)
+
+
     };
 
     const handleNext = () => {
@@ -33,8 +44,8 @@ const VideoSection = () => {
             setCurrentVideo(nextVideoIndex); // Update current video index
             setVideoId(videos[nextVideoIndex].videoId); // Update videoId immediately
         }
-    };    
-    
+    };
+
     const handlePrev = () => {
         if (currentVideo > 0) {
             const prevVideoIndex = currentVideo - 1; // Calculate the previous video index

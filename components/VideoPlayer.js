@@ -3,7 +3,9 @@
 import { useEffect, useRef, useState } from 'react';
 import YouTubePlayer from 'youtube-player';
 
+
 const VideoPlayer = ({ videoId, onThresholdReached }) => {
+
   const playerRef = useRef(null);
   const watchedTimeRef = useRef(0);
   const lastTimeRef = useRef(0);
@@ -18,7 +20,7 @@ const VideoPlayer = ({ videoId, onThresholdReached }) => {
     lastTimeRef.current = 0;
     playbackRateRef.current = 1;
     isWatch70Ref.current = false;
-    
+
     const player = YouTubePlayer('video-player', {
       videoId,
       playerVars: { autoplay: 0, controls: 1 }, // Customize player options
@@ -40,10 +42,11 @@ const VideoPlayer = ({ videoId, onThresholdReached }) => {
           lastTimeRef.current = currentTime;
 
           const duration = await player.getDuration();
-          if (watchedTimeRef.current >= 0.2 * duration) {
+          if (watchedTimeRef.current >= 0.1 * duration) {
             isWatch70Ref.current = true; // Update the ref
-            console.log("User has watched 70% of the video.");
-            onThresholdReached(); // Call the callback
+
+
+            onThresholdReached(videoId); // Call the callback
             clearInterval(intervalIdRef.current); // Stop tracking
           }
         } catch (error) {

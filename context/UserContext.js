@@ -6,12 +6,13 @@ export const Authcontext = createContext();
 export function UserProvider({ children }) {
     const [user, setUser] = useState(null);
     const [isLoggedIn, setLoggedIn] = useState(false);
-
+    const [watchedVideoId, setWatchedVidoId] = useState(null)
     useEffect(() => {
+        if (isLoggedIn) {
+            fetchUserDetails();
+        }
 
-        fetchUserDetails();
-
-    }, [])
+    }, [watchedVideoId])
 
     async function fetchUserDetails() {
         try {
@@ -49,12 +50,13 @@ export function UserProvider({ children }) {
     }
     async function logIn(email) {
         try {
-            console.log("hi from login");
             const response = await axios.post("http://localhost:2000/auth/login",
                 { email },
                 { withCredentials: true },
             );
+
             fetchUserDetails()
+
         } catch (error) {
             setUser(null)
             setLoggedIn(false);
@@ -63,7 +65,7 @@ export function UserProvider({ children }) {
 
 
     return (
-        <Authcontext.Provider value={{ user, setUser, isLoggedIn, setLoggedIn, signUp, logIn }}>
+        <Authcontext.Provider value={{ user, setUser, isLoggedIn, setLoggedIn, signUp, logIn, setWatchedVidoId }}>
             {children}
         </Authcontext.Provider>
     )
