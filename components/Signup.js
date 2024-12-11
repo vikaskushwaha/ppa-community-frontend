@@ -4,10 +4,11 @@ import Button from './Button';
 import Image from 'next/image';
 import rockect from '../public/resources/images/Rocket.svg'
 import { useContext, useState } from 'react';
-import axios from 'axios';
+
 import { Authcontext } from '@/context/UserContext';
 function SignupForm() {
-    const { signUp, logIn } = useContext(Authcontext)
+    const { signUp, logIn, signUpError, loginError } = useContext(Authcontext)
+
     const [signedUp, setSignUp] = useState(true)
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -116,7 +117,12 @@ function SignupForm() {
                                     </p>
                                 </div>
                             )}
-
+                            {signUpError && signedUp && (
+                                <p className='text-red-500 text-center'>{signUpError.response.data.error}</p>
+                            )}
+                            {loginError && !signedUp && (
+                                <p className='text-red-500 text-center'>{loginError.response.data.error}</p>
+                            )}
                             <Button type="submit" className="bg-[#3940A0] py-3 px-2 rounded-[0.625rem] text-white text-[1rem] leading-6 tracking-wide font-gilroybold flex justify-center gap-2 items-center"
                                 imageUrl={rockect}
                                 altText={"rocket"}

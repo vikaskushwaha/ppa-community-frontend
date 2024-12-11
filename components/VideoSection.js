@@ -7,11 +7,12 @@ import { Videos } from '../constants/VideoPlayerConstants'
 import SideBar from "./SideBar.js";
 import { usePostWatchedVideos } from "@/hooks/usePostWatchedVideos.js";
 import { Authcontext } from "@/context/UserContext.js";
+import { useStreakTracker } from "@/hooks/useStreakTracker.js";
 
 const VideoSection = () => {
     const { setWatchedVidoId } = useContext(Authcontext)
     const { postWatchedVideo } = usePostWatchedVideos();
-
+    const { StreakTracker } = useStreakTracker();
     const [videos, setVideos] = useState([...Videos]);
     const [currentVideo, setCurrentVideo] = useState(0);
     const [videoId, setVideoId] = useState(Videos[currentVideo].videoId);
@@ -31,9 +32,10 @@ const VideoSection = () => {
             )
         );
         console.log("User watched 20% of the video.");
-
+        await StreakTracker();
         await postWatchedVideo(VideoData)
-        setWatchedVidoId(VideoData)
+        setWatchedVidoId(VideoData) // api call for updating the count of watched video in side
+
 
 
     };
