@@ -7,7 +7,7 @@ import { useContext, useState } from 'react';
 
 import { Authcontext } from '@/context/UserContext';
 function SignupForm() {
-    const { signUp, logIn, signUpError, loginError } = useContext(Authcontext)
+    const { signUp, logIn, signUpError, loginError, setEmailId } = useContext(Authcontext)
 
     const [signedUp, setSignUp] = useState(true)
     const [name, setName] = useState("");
@@ -31,6 +31,7 @@ function SignupForm() {
 
     async function handleLogInSubmit(e) {
         e.preventDefault();
+        setEmailId(email)
         await logIn(email)
     }
 

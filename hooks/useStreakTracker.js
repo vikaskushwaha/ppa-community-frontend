@@ -3,7 +3,7 @@ import axios from "axios";
 export function useStreakTracker() {
 
     async function StreakTracker() {
-        console.log("hi form useStreaktracker");
+
 
         try {
             const response = await axios.post("http://localhost:2000/api/videostreak",

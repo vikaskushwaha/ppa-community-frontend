@@ -8,10 +8,13 @@ export function UserProvider({ children }) {
     const [watchedVideoId, setWatchedVidoId] = useState(null)
     const [loginError, SetLoginError] = useState();
     const [signUpError, setSignUpError] = useState();
+    const [emailId, setEmailId] = useState(null)
 
     useEffect(() => {
+        if (localStorage.getItem('id')) {
+            fetchUserDetails();
+        }
 
-        fetchUserDetails();
     }, [watchedVideoId])
 
     async function fetchUserDetails() {
@@ -20,8 +23,6 @@ export function UserProvider({ children }) {
             const response = await axios.get("http://localhost:2000/api/welcome", {
                 withCredentials: true,
             })
-            console.log("listOfWatchtd", response.data.usersInfo.ListOfWatchedVideos);
-            console.log("loggedInStatus", isLoggedIn);
 
             if (response.data) {
                 setUser(response.data)
@@ -36,14 +37,17 @@ export function UserProvider({ children }) {
 
     async function signUp(name, email, phone) {
         try {
-
-
             const response = await axios.post("http://localhost:2000/auth/signup",
                 { name, email, phone },
                 { withCredentials: true },
-
-
             );
+            if (response.data) {
+                console.log(response.data.newId);
+
+                localStorage.setItem('id', response.data.newId)
+                setLoggedIn(true)
+            }
+
             fetchUserDetails()
 
         } catch (error) {
@@ -62,11 +66,13 @@ export function UserProvider({ children }) {
                 { withCredentials: true },
             );
 
-
-            fetchUserDetails()
             if (response.data) {
                 setLoggedIn(true);
+                localStorage.setItem('id', response.data.newId)
+
             }
+            fetchUserDetails()
+
 
         } catch (error) {
 
@@ -78,7 +84,7 @@ export function UserProvider({ children }) {
 
 
     return (
-        <Authcontext.Provider value={{ user, setUser, isLoggedIn, setLoggedIn, signUp, logIn, setWatchedVidoId, loginError, signUpError }}>
+        <Authcontext.Provider value={{ user, setUser, isLoggedIn, setLoggedIn, signUp, logIn, setWatchedVidoId, loginError, signUpError, setEmailId }}>
             {children}
         </Authcontext.Provider>
     )

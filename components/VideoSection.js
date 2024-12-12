@@ -8,20 +8,27 @@ import SideBar from "./SideBar.js";
 import { usePostWatchedVideos } from "@/hooks/usePostWatchedVideos.js";
 import { Authcontext } from "@/context/UserContext.js";
 import { useStreakTracker } from "@/hooks/useStreakTracker.js";
+import SignUpLoggInPopup from "./SignupLoggInPopup.js";
+import { usePopupToggle } from "@/hooks/usePopupToggle.js";
 
 const VideoSection = () => {
-    const { setWatchedVidoId } = useContext(Authcontext)
+    const { setWatchedVidoId, isLoggedIn } = useContext(Authcontext)
     const { postWatchedVideo } = usePostWatchedVideos();
     const { StreakTracker } = useStreakTracker();
     const [videos, setVideos] = useState([...Videos]);
     const [currentVideo, setCurrentVideo] = useState(0);
+    const { setToggle, PopupToggle, toggle } = usePopupToggle();
     const [videoId, setVideoId] = useState(Videos[currentVideo].videoId);
+
+
+
+
     const handleCurrentVideo = (index) => {
         setCurrentVideo(index);
         setVideoId(videos[index].videoId);
-        console.log(index);
-    }
 
+    }
+    console.log("isloggedIn", isLoggedIn)
     const handleThresholdReached = async (VideoData) => {
         Videos[currentVideo].isWatched = true;
 
@@ -58,6 +65,14 @@ const VideoSection = () => {
 
     return (
         <div className="flex h-screen bg-[#14171F] py-[20px] text-white">
+            {!isLoggedIn && (
+                <div className=" flex bg-transparent h-[100vh] w-[100vw] absolute  justify-center items-center "
+                    onClick={() => PopupToggle(true)}
+                >
+                    {toggle && (<SignUpLoggInPopup PopupToggle={PopupToggle} />)}
+
+                </div>
+            )}
             {/* Sidebar */}
             <SideBar Videos={videos} handleCurrentVideo={handleCurrentVideo} currentVideo={currentVideo} />
             {/* Main Content */}
