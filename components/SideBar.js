@@ -22,7 +22,6 @@ function SideBar({ Videos, handleCurrentVideo, currentVideo }) {
     }, [totalPoints])
 
     const no_of_watchedVidos = user?.usersInfo?.ListOfWatchedVideos || [];
-
     return (
         <div className="w-1/4 bg-[#292C33] rounded-e-[20px] p-4">
             <div className='flex justify-between'>

@@ -1,34 +1,50 @@
 'use client'
 import { FaChevronRight } from "react-icons/fa";
-import { useState, useEffect } from "react";
+import { useState, useEffect, use, useContext } from "react";
 import VideoPlayer from "./VideoPlayer.js";
 import { FaArrowLeft } from 'react-icons/fa';
-import {Videos} from '../constants/VideoPlayerConstants'
+import { Videos } from '../constants/VideoPlayerConstants'
 import SideBar from "./SideBar.js";
+import { usePostWatchedVideos } from "@/hooks/usePostWatchedVideos.js";
+import { Authcontext } from "@/context/UserContext.js";
+import { useStreakTracker } from "@/hooks/useStreakTracker.js";
+import SignUpLoggInPopup from "./SignupLoggInPopup.js";
+import { usePopupToggle } from "@/hooks/usePopupToggle.js";
 
 const VideoSection = () => {
+    const { setWatchedVidoId, isLoggedIn } = useContext(Authcontext)
+    const { postWatchedVideo } = usePostWatchedVideos();
+    const { StreakTracker } = useStreakTracker();
     const [videos, setVideos] = useState([...Videos]);
     const [currentVideo, setCurrentVideo] = useState(0);
+    const { setToggle, PopupToggle, toggle } = usePopupToggle();
     const [videoId, setVideoId] = useState(Videos[currentVideo].videoId);
 
-    // const watchedVideos=[1,2,3];
-    // console.log(Videos)
+
+
 
     const handleCurrentVideo = (index) => {
         setCurrentVideo(index);
         setVideoId(videos[index].videoId);
-        console.log(index);
-    }
 
-    const handleThresholdReached = () => {
-        Videos[currentVideo].isWatched=true;
-        
+    }
+    console.log("isloggedIn", isLoggedIn)
+    const handleThresholdReached = async (VideoData) => {
+        Videos[currentVideo].isWatched = true;
+
+
         setVideos((prevVideos) =>
             prevVideos.map((video, i) =>
                 i === currentVideo ? { ...video, isWatched: true } : video
             )
         );
         console.log("User watched 20% of the video.");
+        await StreakTracker();
+        await postWatchedVideo(VideoData)
+        setWatchedVidoId(VideoData) // api call for updating the count of watched video in side
+
+
+
     };
 
     const handleNext = () => {
@@ -37,8 +53,8 @@ const VideoSection = () => {
             setCurrentVideo(nextVideoIndex); // Update current video index
             setVideoId(videos[nextVideoIndex].videoId); // Update videoId immediately
         }
-    };    
-    
+    };
+
     const handlePrev = () => {
         if (currentVideo > 0) {
             const prevVideoIndex = currentVideo - 1; // Calculate the previous video index
@@ -49,6 +65,14 @@ const VideoSection = () => {
 
     return (
         <div className="flex h-screen bg-[#14171F] py-[20px] text-white">
+            {!isLoggedIn && (
+                <div className=" flex bg-transparent h-[100vh] w-[100vw] absolute  justify-center items-center "
+                    onClick={() => PopupToggle(true)}
+                >
+                    {toggle && (<SignUpLoggInPopup PopupToggle={PopupToggle} />)}
+
+                </div>
+            )}
             {/* Sidebar */}
             <SideBar Videos={Videos} handleCurrentVideo={handleCurrentVideo} currentVideo={currentVideo} />
             {/* Main Content */}
