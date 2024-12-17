@@ -6,7 +6,7 @@ import SignupForm from './Signup';
 function communityBanner() {
     return (
         <div className="flex bg-[#14171F] justify-center sm:py-[5rem] py-5 sm:px-8 px-5 w-full">
-            <div className="flex flex-wrap md:justify-around sm:flex-row flex-col w-full">
+            <div className="flex flex-wrap md:justify-around sm:flex-row flex-col md:max-w-[1314px] w-full">
                 <div className="flex flex-col gap-[2.5rem] lg:w-auto md:w-[55%] w-full">
                     <div className="flex flex-col gap-4 lg:w-[39.0625rem] md:w-[100%] ">
                         <div className="flex flex-row gap-x-2 items-center bg-[#FEF3C7] rounded-[0.75rem] py-2 sm:px-5 px-2 sm:w-[13.8125rem] w-[9.9375rem]">
