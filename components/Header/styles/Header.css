@@ -1,0 +1,276 @@
+.header-buttons {
+    display: flex;
+    align-items: center;
+    gap: 0.556vw;
+}
+.header-container {
+    background-color: white;
+    border-bottom: 1px solid #E2E8F0;
+    position: sticky;
+}
+.new-header-nav-links-container:hover + .nav-backdrop{
+    opacity: 0.8;
+}
+
+.header-buttons {
+    opacity: 1 !important;
+}
+
+.header-main-container {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    width: 100%;
+    margin: 0 auto;
+}
+.ppa-logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.header-ppa-nav-container {
+    display: flex;
+    flex-direction: row;
+    width: 25%;
+    justify-content: space-between;
+}
+.header-links {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #ffffff;
+}
+.header-nav-links-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.header-nav-link {
+    color: #4f516b;
+    font-family: "Gilroy-Medium";
+    text-decoration: none;
+    font-size: 1vw;
+    margin: 0 1vw;
+    padding-left: 0.5vw;
+    padding-right: 0.5vw;
+    white-space: nowrap;
+}
+.nav-backdrop{
+    transition: all 300ms ease-in-out;
+    position: relative;
+    z-index: 100;
+}
+
+.header-nav-links-container:hover .nav-backdrop:not(:hover){
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background: #0F172A99;
+    top: 70px;
+    left: 0px;
+    z-index: 100;
+}
+
+.side-nagivation-list-mob {
+    font-family: "Gilroy-Medium";
+}
+.ga-login-btn{
+    background: #F2F4FC;
+    border-radius: 0.694vw;
+}
+.log-in-or-out-btn {
+    display: inline-block; 
+    padding: 0.833vw 2.5vw; 
+    cursor: pointer;
+    color: #3940A0; 
+    font-family: 'Gilroy-Bold'; 
+    font-size: 1.11vw;
+    line-height: 1.667vw;
+    font-weight: 400;
+    text-align: center; 
+    border: 1px solid transparent; 
+    background: #F2F4FC; 
+    opacity: 1 !important;
+    border-radius: 10px;
+}
+.sing-up-btn {
+    margin-left: 8px;
+    color: white;
+    background: #3940A0;
+    font-family: Gilroy-Bold;
+    font-size: 1.11vw;
+    line-height: 1.667vw;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    border: none;
+    padding: 0.833vw 25px;
+    border-radius: 0.694vw;
+    cursor: pointer;
+    opacity: 1 !important;
+
+}
+
+@media (max-width: 992px) {
+    .header-nav-link {
+        font-size: 1.3vw;
+        margin: 0 10px;
+    }
+
+    .header-nav-links-container {
+        padding-right: 0;
+    }
+    .log-in-or-out-btn {
+        font-size: 1.3vw;
+    }
+    .ppa-header-logo {
+        max-width: 15vw !important;
+    }
+}
+@media (max-width: 600px) {
+    .log-in-or-out-btn {
+        font-size: 14px;
+        padding-right: 1vw;
+        display: none;
+    }
+
+    .ppa-logo {
+        width: 56vw !important;
+    }
+    .header-container {
+        display: flex;
+        justify-content: space-around;
+        padding-left: 1vw;
+        padding-right: 1vw;
+        align-items: center;
+        padding: 2vw 2vw;
+    }
+    .ppa-header-logo {
+        max-width: 40vw;
+    }
+    .ppa-header-logo .login-screen-mob-wrapper {
+        background-color: #4f516b;
+        z-index: 4;
+    }
+    .sing-up-btn,.login-btn-mob {
+        color: #3940A0;
+        border: none;
+        outline: none;
+        background: #E7EAEE;
+        border-radius: 2.667vw;
+        padding: 3.2vw 3vw;
+        cursor: pointer;
+        width: 100%;
+        font-family: Gilroy-Bold;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+        letter-spacing: 0.02em;
+    }
+    .login-btn-mob .button-text{
+        font-family: Gilroy-Bold !important;
+        font-size: 16px !important;
+        font-weight: 400 !important;
+        line-height: 24px !important;
+        letter-spacing: 0.02em !important;
+    }
+    .sing-up-btn{
+        margin-left: 0px;
+        font-family: Gilroy-Bold;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+        letter-spacing: 0.02em;
+        background: #3940A0;
+        color: #FFFFFF;
+    }
+    .action-btn {
+        background: #3940A0;
+        border: none;
+        outline: none;
+        color: #ffffff;
+        font-family: "Poppins-Regular";
+        padding: 3.2vw 3vw;
+        cursor: pointer;
+        width: 100%;
+        font-family: Gilroy-Bold;
+        font-size: 4.267vw;
+        font-weight: 400;
+        line-height: 6.4vw;
+        letter-spacing: 0.02em;
+        border-radius: 2.667vw;
+    }
+    .ppa-logo-mob {
+        margin-left: 2vw;
+        /* width: 70%; */
+    }
+    .side-navigation-header-wrapper {
+        background: #FFFFFF;
+        padding: 10px 15px 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        gap: 10.8vw;
+        align-items: center;
+    }
+    .side-navigation-links {
+        font-family: "Gilroy-Medium";
+        text-decoration: none;
+        color: #4f516b;
+    }
+    .side-nagivation-list-mob {
+        margin-top: 5.333vw;
+        padding-left: 10px;
+        color:#000000;
+        display: flex;
+        flex-direction: column;
+    }
+    .side-nagivation-list-mob a {
+        margin-top: 5vw;
+        margin-left: 10px;
+        cursor: pointer;
+        text-decoration: none;
+        color:#000000;
+    }
+    .side-nagivation-list-mob a:visited {
+        color: #000;
+    }
+    .side-nagivation-list-mob a:hover {
+        color: #444bab;
+    }
+    .side-nagivation-login-trail-btn {
+        align-items: center;
+        display: flex;
+        justify-content: space-evenly;
+        margin-top: 5.667vw;
+        padding: 5vw 0vw;
+    }
+    .mob-course-drop-down {
+        padding-left: 10px;
+        cursor: pointer;
+    }
+    .mob-course-drop-down:hover {
+        color: #444bab;
+    }
+    .drop-down-wrapper {
+        background: #F7F8F9;
+        padding: 0 2vw;
+        margin-right: 2vw;
+        margin-bottom: 1vw;
+    }
+    .drop-down-menu {
+        padding: 1.5vw 0;
+    }
+    .side-nagivation-list-mob a {
+        margin-left: 0vw;
+        margin-top: 0vw;
+    }
+    .side-nagivation-login-trail-btn{
+        width: 100%;
+        flex-direction: column;
+        gap: 2.133vw;
+        padding-left: 10px;
+    }
+}
