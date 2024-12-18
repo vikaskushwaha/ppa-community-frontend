@@ -1,0 +1,68 @@
+.hamburger-wrapper,
+.hamburger-links-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.hamburger-CTA-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 7vw;
+}
+
+.hamburger-wrapper {
+    height: 100vh;
+    width: 75vw;
+    background: #fff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 3vw 5vw;
+}
+
+.hamburger-header-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 97%;
+    margin-bottom: 6vw;
+}
+
+.hamburger-header-wrapper > img {
+    width: 12px;
+    height: 12px;
+}
+
+.hamburger-wrapper .PPA-logo > h3 {
+    font-size: 3.5vw;
+}
+
+.hamburger-links-wrapper > a {
+    margin-bottom: 6vw;
+    font-family: "Gilroy-Medium";
+    color: #4f516b;
+}
+
+.hamburger-login {
+    border: 1px solid #444bab;
+    font-family: "Gilroy-Bold";
+    border-radius: 6px;
+    color: #444bab;
+    width: 80%;
+    padding: 1vw 0;
+    margin-bottom: 3vw;
+    text-align: center;
+}
+
+.hamburger-signup {
+    background: #444bab;
+    border: 1px solid #444bab;
+    border-radius: 6px;
+    color: #ffffff;
+    text-align: center;
+    font-family: "Gilroy-Bold";
+    padding: 1vw 0;
+    width: 80%;
+}

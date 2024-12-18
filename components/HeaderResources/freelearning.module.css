@@ -1,0 +1,209 @@
+.resourcesContainer {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+}
+
+.resourcesText {
+    text-align: center;
+    cursor: pointer;
+    padding: 1vw 10px 1vw 10px;
+    align-items: center;
+}
+.resourcesDiv{
+    display: flex;
+    justify-content: space-between;
+    gap: 0.278vw;
+}
+.resourcesHeading {
+    font-family: 'Gilroy-SemiBold';
+    font-size: 1.111vw; 
+    line-height: 1.667vw;
+    font-weight: 400;
+    color: #231F20;
+}
+
+.freeLearningLink {
+    font-family: 'Gilroy-Medium';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.764vw;
+    line-height: 0.833vw;
+    color: #5A74D7;
+    text-decoration: none;
+}
+
+/* Hover box container */
+.hoverBox {
+    box-sizing: content-box;
+    display: none;
+    position: absolute;
+    top: 4.5vw;
+    left: 0;
+    background-color: white;
+    border-radius: 0vw 0vw 0.556vw 0.556vw;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 24.336VW; 
+    z-index: 1000;
+    text-align: left;
+    z-index: 1000;
+    transition: opacity 0.3s ease;
+    opacity: 1;
+    overflow: hidden;
+}
+.resourcesContainer:hover .hoverBox{
+    display: block;
+}
+.arrowStyle{
+    color: #020617;
+    transform: rotate(180deg);
+}
+.resourcesContainer:hover .arrowStyle{
+    transition: transform 0.3s ease;
+    transform: rotate(0deg);
+}
+/* Each course item (YouTube, Community, Events, Blogs) */
+.courseItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 8px 12px;
+    gap: 12px;
+    height: 60px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+    text-decoration: none; /* Remove underline from clickable item */
+}
+
+.courseItem:last-child {
+    border-bottom: none;
+}
+
+.courseItem:hover {
+    background: #4659CA;
+    color: white;
+}
+
+/* Text inside each courseItem block */
+.courseItem h4 {
+    margin: 0;
+    color: #333;
+    transition: color 0.3s ease;
+    flex: 1;
+    text-decoration: none; /* Remove underline from heading */
+    font-family: Gilroy-SemiBold;
+    font-size: 1.111vw;
+    font-weight: 800;
+    line-height: 1.389vw;
+    letter-spacing: 0.02em;
+    text-align: left;
+}
+
+.courseItem p {
+    margin: 0;
+    color: #475569; 
+    transition: color 0.3s ease;
+    text-align: left;
+    text-decoration: none; /* Remove underline from description */
+    font-family: Gilroy-Regular;
+    font-size: 0.694vw;
+    font-weight: 400;
+    line-height: 0.833vw;
+    letter-spacing: 0.02em;
+}
+
+.courseItem:hover h4,
+.courseItem:hover p {
+    color: white;
+}
+
+/* Icon size and hover effect */
+.redIcon {
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.courseItem:hover .redIcon {
+    display: none;
+}
+.whiteIcon{
+    display: none;
+}
+.courseItem:hover .whiteIcon{
+    display: block;
+}
+@media only screen and (max-width: 600px) {
+    .resourcesText{
+        align-items: start;
+        margin-top: 4.333vw;
+    }
+    .resourcesHeading{
+        font-family: Gilroy-SemiBold;
+        font-size: 4.267vw;
+        font-weight: 400;
+        line-height: 6.4vw;
+        letter-spacing: 0.02em;
+        text-align: left;
+    }
+    .freeLearningLink{
+        font-family: Gilroy-Medium;
+        font-size: 2.667vw;
+        font-weight: 400;
+        line-height: 3.2vw;
+        letter-spacing: 0.02em;
+        text-align: left;
+        margin: 0;
+    }
+    .hoverBox{
+        background: linear-gradient(140.7deg, #A4BCEC -43.4%, #FFFFFF 26.41%, #FFFFFF 66.6%, #A4BCEC 146.3%);
+        border: 1px solid #F1F5F9;
+        border-radius: 3.2vw;
+        display: block;
+        position: relative;
+        top: 2.133vw;
+        left: 2vw;
+        width: 100%;
+        box-shadow: none;
+        max-height: 0; /* Collapsed initially */
+        overflow: hidden; /* Ensure content doesn't overflow when collapsed */
+        opacity: 0;
+        transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    }
+    .hoverBoxOpen {
+        max-height: 90vw;
+        opacity: 1;
+    }
+
+    .arrowStyle{
+        transform: rotate(90deg);
+    }
+    .courseItem{
+        border: none;
+    }
+    .courseItem h4{
+        font-family: Gilroy-SemiBold;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 20px;
+        letter-spacing: 0.02em;
+        text-align: left;
+    }
+    .courseItem p{
+        font-family: Gilroy-Regular;
+        font-size: 10px;
+        font-weight: 400;
+        line-height: 12px;
+        letter-spacing: 0.02em;
+        text-align: left;
+    }
+    .courseItem:hover{
+        background: none;
+    }
+    .courseItem:hover h4{
+        color: #020617;
+    }
+    .courseItem:hover p{
+        color: #475569;
+    }
+    
+}

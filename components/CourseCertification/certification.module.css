@@ -1,0 +1,328 @@
+.doubtResolution {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0px 12px;
+    gap: 4px;
+    width: 362px;
+    height: 16px;
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+    font-family: "Gilroy-Medium";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.01em;
+    color: #d97706;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+}
+
+.belowBoxes {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 4px;
+    width: 362px;
+    height: 500px;
+    flex: none;
+    order: 1;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+.belowBoxItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 20px 12px;
+    gap: 12px;
+    width: 362px;
+    height: 80px;
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+.certificationContainer {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+}
+
+.certificationText {
+    text-align: center;
+    /* padding: 10px; */
+    padding: 1vw 10px 1vw 10px;
+    cursor: pointer;
+}
+.certificationDiv {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.278vw;
+}
+
+.certificationCoursesTitle {
+    font-family: "Gilroy-SemiBold";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.111vw;
+    line-height: 1.667vw;
+    color: #231f20;
+}
+
+.skillsLink {
+    font-family: "Gilroy-Medium";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.764vw;
+    line-height: 0.833vw;
+    color: #5a74d7;
+    text-decoration: none;
+}
+
+.hoverBox {
+    box-sizing: content-box;
+    display: none;
+    position: absolute;
+    top: 4.5vw;
+    left: 0;
+    background-color: white;
+    border-radius: 0vw 0vw 0.556vw 0.556vw;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding-top: 1.389vw;
+    width: 24.336vw;
+    z-index: 1000;
+    text-align: left;
+    transition: all 0.3s ease-in-out;
+}
+.certificationContainer:hover .hoverBox {
+    display: block;
+}
+.arrowKeyStyle {
+    color: #020617;
+    transform: rotate(180deg);
+}
+.certificationContainer:hover .arrowKeyStyle {
+    transition: transform 0.3s ease;
+    transform: rotate(0deg);
+}
+.doubtHeading {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    color: #ff9800;
+    margin: 0vw 0vw 1.111vw 2vw;
+    position: relative;
+    font-family: Gilroy-Medium;
+    font-size: 0.833vw;
+    font-weight: 400;
+    line-height: 1.111vw;
+    letter-spacing: 0.01em;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        background: transparent;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.doubtHeading::before {
+    content: "•";
+    position: absolute;
+    color: #ff9800;
+    font-size: 1.2rem;
+    background: #fef3c7;
+    border-radius: 50%;
+    width: 1.181vw;
+    height: 1.181vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: -1.5vw;
+    top: -0.05vw;
+    animation: pulse 2s infinite;
+}
+
+.courseItem {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.833vw;
+    padding: 1.389vw 0.833vw;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.courseItem:last-child {
+    border-radius: 0vw 0vw 0.556vw 0.556vw;
+}
+
+.courseItem p {
+    font-family: Gilroy-SemiBold;
+    font-size: 1vw;
+    font-weight: 400;
+    line-height: 1.389vw;
+    letter-spacing: 0.02em;
+}
+
+.additionalInfo {
+    display: flex;
+    align-items: flex-start;
+    padding: 0.278vw 0.833vw;
+    gap: 8px;
+    position: absolute;
+    left: 4.167vw;
+    top: -4.167px;
+    background: #fffbeb;
+    border-radius: 18px;
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.3s ease, top 0.3s ease;
+}
+
+.courseItem:hover .additionalInfo {
+    visibility: visible;
+    opacity: 1;
+    top: 2px;
+}
+
+.coursepara{
+    color: #020617;
+}
+
+.infoDetail {
+    font-family: Gilroy-Medium;
+    font-size: 0.694vw;
+    font-weight: 400;
+    line-height: 1.111vw;
+    letter-spacing: 0.02em;
+    text-align: center;
+    color: #020617;
+}
+
+.detailSeparator {
+    width: 3px;
+    height: 7px;
+    font-family: "Gilroy-SemiBold";
+    font-size: 10px;
+    line-height: 16px;
+    text-align: center;
+    letter-spacing: 0.02em;
+    color: #020617;
+}
+
+.hovered {
+    background: #4659ca;
+    color: white;
+}
+
+.hovered p {
+    color: white;
+}
+
+.hovered .icon {
+    transition: transform 600ms ease-in-out;
+    transform: scale(1.2);
+}
+
+@media only screen and (max-width: 600px) {
+    .resourcesText {
+        align-items: start;
+    }
+    .certificationCoursesTitle {
+        font-family: Gilroy-SemiBold;
+        font-size: 4.267vw;
+        font-weight: 400;
+        line-height: 6.4vw;
+        letter-spacing: 0.02em;
+        text-align: left;
+    }
+    .certificationText {
+        margin-top: 4.333vw;
+    }
+    .skillsLink {
+        font-family: Gilroy-Medium;
+        font-size: 2.667vw;
+        font-weight: 400;
+        line-height: 3.2vw;
+        letter-spacing: 0.02em;
+        text-align: left;
+        margin: 0;
+    }
+    .hoverBox {
+        display: block;
+        position: relative;
+        top: 0;
+        width: 100%;
+        left: 2vw;
+        border: none;
+        box-shadow: none;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    }
+
+    .hoverBoxOpen {
+        max-height: 125vw;
+        opacity: 1;
+    }
+
+    .doubtHeading {
+        margin: 3.2vw 0vw 3.2vw 1vw;
+    }
+    .doubtHeading p {
+        font-family: Gilroy-Medium;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 16px;
+        letter-spacing: 0.01em;
+        text-align: left;
+        margin-left: 5.867vw;
+    }
+    .doubtHeading::before {
+        left: -0.5vw;
+        top: -1vw;
+        padding: 0.833vw 0.267vw 0vw 0.267vw;
+        width: 5vw;
+        height: 5vw;
+    }
+    .courseItemContainer {
+        background: linear-gradient(140.28deg, #a4bcec -32.86%, #ffffff 29.94%, #ffffff 66.09%, #a4bcec 137.79%);
+        padding: 2.133vw;
+        border-radius: 3.2vw;
+        border: 1px solid #f1f5f9;
+    }
+    .courseItem {
+        margin-left: 2vw;
+    }
+    .courseItem p {
+        font-family: Gilroy-SemiBold;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 16px;
+        letter-spacing: 0.02em;
+        text-align: left;
+        margin-left: 8px;
+    }
+    .additionalInfo {
+        display: none;
+        opacity: 0;
+    }
+}

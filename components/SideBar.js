@@ -3,8 +3,9 @@ import { Authcontext } from '@/context/UserContext'
 import { useContext } from 'react'
 import Button from './Button';
 import { useGetUserPoints } from '@/hooks/useGetTotalUserPoints'
+import { MdClose } from "react-icons/md";
 
-function SideBar({ Videos, handleCurrentVideo, currentVideo }) {
+function SideBar({ Videos, handleCurrentVideo, currentVideo, isOpenSlider, handleSliderMenu }) {
     const { totalPoints, fetchUsersTotalPoints } = useGetUserPoints();
     const [buttonTxt, setButtonTxt] = useState("Check Points")
     const { user } = useContext(Authcontext)
@@ -13,6 +14,7 @@ function SideBar({ Videos, handleCurrentVideo, currentVideo }) {
         await fetchUsersTotalPoints();
 
     }
+    console.log(Videos)
     useEffect(() => {
         if (totalPoints) {
             setButtonTxt(`Total Points: ${totalPoints.TotalPoints} Points`)
@@ -22,7 +24,10 @@ function SideBar({ Videos, handleCurrentVideo, currentVideo }) {
 
     const no_of_watchedVidos = user?.usersInfo?.ListOfWatchedVideos || [];
     return (
-        <div className="w-1/4 bg-[#292C33] rounded-e-[20px] p-4">
+        <div className={`${isOpenSlider?'top-0 block h-dvh w-full rounded-e-0':'hidden'} md:block w-1/4 h-[100%] bg-[#292C33] md:rounded-e-[20px] p-4 md:relative absolute`} >
+            <div className="md:hidden block flex justify-end" onClick={()=>{handleSliderMenu(false)}}>
+                <MdClose className='text-[24px] mb-[22px]'/>
+            </div>
             <div className='flex justify-between'>
                 <h2 className="text-lg font-gilroybold mb-4 text-[16px] leading-[24px] tracking-wide text-[#ffffff]">{!no_of_watchedVidos ? `${0}` : `${no_of_watchedVidos.length}/111 Videos`}</h2>
                 <p className='font-gilroyregular text-[#FFFFFF] text-[14px] leading-[20px] tracking-wide'>25% Completed</p>
@@ -30,7 +35,7 @@ function SideBar({ Videos, handleCurrentVideo, currentVideo }) {
             <div className="h-2 w-full bg-[#3A3C43] rounded">
                 <div className="h-2 bg-[#14171F] rounded" style={{ width: "50%" }}></div>
             </div>
-            <div className="space-y-4 mt-[20px] w-full h-[77%] pr-[12px] overflow-y-auto scrollbar-custom">
+            <div className="space-y-4 mt-[20px] w-full md:h-[75%] h-[68%] pr-[12px] overflow-y-auto scrollbar-custom">
                 {Videos.map((video, index) => (
                     <div
                         key={video.id}
@@ -71,7 +76,7 @@ function SideBar({ Videos, handleCurrentVideo, currentVideo }) {
                 ))}
             </div>
             <Button
-                className="mt-[30px] w-full bg-[#FBBF24] text-[#020617] font-semibold text-[16px] leading-[24px] py-3 mt-4 rounded-[12px] hover:bg-yellow-600"
+                className="absolute bottom-[3%] left-[5%] w-[90%] bg-[#FBBF24] text-[#020617] font-semibold text-[16px] leading-[24px] py-3 mt-4 rounded-[12px] hover:bg-yellow-600"
                 onClick={handleOnclick}
             >
                 {buttonTxt}

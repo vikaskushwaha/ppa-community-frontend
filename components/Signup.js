@@ -41,10 +41,10 @@ function SignupForm() {
         setSignUp(index)
     }
     return (
-        <div className="lg:mt-0 mt-[20px] flex rounded-[1.25rem] p-6 bg-[#292C33]">
-            <div className="flex flex-col gap-y-3 sm:w-full w-[19.4375rem]">
-                <div className="flex sm:w-[28.125rem] w-[19.75rem] justify-center">
-                    <div className="flex  flex-row rounded-[0.75rem] p-2 gap-x-5 bg-[#14171F] max-w-[19.75rem]">
+        <div className="md:mt-0 mt-[20px] flex justify-center rounded-[1.25rem] md:p-6 p-3 bg-[#292C33] sm:h-[456px] h-auto md:max-w-[498px] w-full">
+            <div className="flex flex-col gap-y-3 lg:w-full md:w-full w-full">
+                <div className="flex sm:w-[28.125rem] w-[17.75rem] justify-center mx-auto">
+                    <div className="flex  flex-row rounded-[0.75rem] p-2 gap-x-0 bg-[#14171F] max-w-[19.75rem]">
                         <div
                             className={`flex py-2 px-4 w-[8.75rem]  rounded-[0.375rem] ${signedUp ? 'bg-[#292C33]' : 'bg-[#14171F]'} justify-center  cursor-pointer " `}
                             onClick={() => toggleTab(true)}
@@ -94,7 +94,7 @@ function SignupForm() {
                                     onChange={handleEmailchange}
                                     className="bg-[#14171F] py-[0.625rem] px-5 rounded-[0.375rem] text-white text-[1rem]
                                      placeholder:text-[1rem] placeholder:font-gilroyregular placeholder:leading-6"
-                                    placeholder="Enter your eamil"
+                                    placeholder="Enter your email"
                                     required
                                 />
                             </div>
