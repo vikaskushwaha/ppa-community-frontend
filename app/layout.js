@@ -1,6 +1,8 @@
 
 import localFont from "next/font/local";
 import "./globals.css";
+import "../components/Header/styles/Hamburger.css"
+import "../components/Header/styles/Header.css"
 
 import { UserProvider } from "@/context/UserContext";
 

@@ -5,7 +5,7 @@ import Button from './Button'
 
 function RewardCouponCard({cardImg,cardTxt,cardPoints}) {
   return (
-    <div className='w-[339px] bg-[#FFFFFF] rounded-[20px] p-[12px]'>
+    <div className='md:w-[339px] w-[335px] bg-[#FFFFFF] rounded-[20px] p-[12px]'>
         <div>
             <Image src={cardImg} alt='coupon-img' />
         </div>
@@ -18,7 +18,7 @@ function RewardCouponCard({cardImg,cardTxt,cardPoints}) {
                 </div>
             </div>
         </div>
-        <Button className={`mt-[17px] bg-[#3940A0] w-full py-[12px] text-center rounded-[6px]`}>
+        <Button className={`mt-[17px] hover:bg-[#7997E1] bg-[#3940A0] w-full py-[12px] text-center rounded-[6px]`}>
             <p className='text-[16px] leading-[24px] text-[#ffffff] tracking-wide'>Redeem Now</p>
         </Button>
     </div>
