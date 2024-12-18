@@ -29,9 +29,9 @@ function PointErned() {
                                     <div className="border-r w-[65%] p-3 text-[14px] leading-[20px] tracking-wide text-[#F8FAFC] font-gilroymedium">{data.activity}</div>
                                     <div className="w-[35%] flex justify-center">
                                         <div className="overflow-hidden relative top-[-10px]">
-                                            <Image className={`${idx == 4 ? 'hidden' : 'block'} relative top-[22px] h-[44px]`} src={data.img} alt="coin-img" />
+                                            <Image className={`${idx == 4 ? 'hidden' : 'block'} ${((idx == 0)||(idx == 3)) ? 'left-[-20px]':'left-0'} relative top-[22px] h-[44px]`} src={data.img} alt="coin-img" />
                                         </div>
-                                        <Image className={`${idx == 4 ? 'block' : 'hidden'} relative top-[10px] h-[44px]`} src={data.img} alt="coin-img" />
+                                        <Image className={`${idx == 4 ? 'block' : 'hidden'} relative top-[10px] left-[-18px] h-[44px]`} src={data.img} alt="coin-img" />
                                     </div>
                                 </div>
                             ))

@@ -94,7 +94,7 @@ function SignupForm() {
                                     onChange={handleEmailchange}
                                     className="bg-[#14171F] py-[0.625rem] px-5 rounded-[0.375rem] text-white text-[1rem]
                                      placeholder:text-[1rem] placeholder:font-gilroyregular placeholder:leading-6"
-                                    placeholder="Enter your eamil"
+                                    placeholder="Enter your email"
                                     required
                                 />
                             </div>

@@ -14,7 +14,7 @@ function HeaderForDesktop() {
         </div>
         <NavLinks/>
         <div>
-            <button className="text-[#1F2358] text-[16px] leading-[24px] tracking-wide font-gilroybold w-[134px] rounded-[10px] bg-[#F2F4FC] py-[12px]">Log Out</button>
+            <button className="text-[#3940A0] text-[16px] leading-[24px] tracking-wide font-gilroybold w-[134px] rounded-[10px] bg-[#F2F4FC] py-[12px]">Log Out</button>
         </div>
     </div>
   )
