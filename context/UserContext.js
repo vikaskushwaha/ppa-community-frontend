@@ -14,7 +14,6 @@ export function UserProvider({ children }) {
         if (localStorage.getItem('id')) {
             fetchUserDetails();
         }
-
     }, [watchedVideoId])
 
     async function fetchUserDetails() {
