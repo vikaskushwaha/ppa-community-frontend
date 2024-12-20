@@ -5,7 +5,7 @@ import VideoPlayer from "./VideoPlayer.js";
 import { FaArrowLeft } from 'react-icons/fa';
 import { RiMenuUnfold3Line } from "react-icons/ri";
 import { FaChevronLeft } from "react-icons/fa";
-import { Videos } from '../constants/VideoPlayerConstants'
+import { useVideo } from "@/hooks/useVideo.js";
 import SideBar from "./SideBar.js";
 import { usePostWatchedVideos } from "@/hooks/usePostWatchedVideos.js";
 import { Authcontext } from "@/context/UserContext.js";
@@ -14,25 +14,63 @@ import SignUpLoggInPopup from "./SignupLoggInPopup.js";
 import { usePopupToggle } from "@/hooks/usePopupToggle.js";
 
 const VideoSection = () => {
-    const { setWatchedVidoId, isLoggedIn } = useContext(Authcontext)
+    const Videos = useVideo();
+    const { setWatchedVidoId, isLoggedIn, user } = useContext(Authcontext)
     const { postWatchedVideo } = usePostWatchedVideos();
     const { StreakTracker } = useStreakTracker();
-    const [videos, setVideos] = useState([...Videos]);
+    const [videos, setVideos] = useState([]);
     const [currentVideo, setCurrentVideo] = useState(0);
     const { setToggle, PopupToggle, toggle } = usePopupToggle();
-    const [videoId, setVideoId] = useState(Videos[currentVideo].videoId);
+    const [videoId, setVideoId] = useState(null);
     const [isOpenSlider, setIsOpenSlider] = useState(false);
     const videoSectionRef = useRef(null);
 
+    useEffect(() => {      // this is because it might be the case that videos are not getting fetched 
+        if (Videos && Videos.length > 0) {
+            setVideos(Videos);
+            setVideoId(Videos[0].videoid);
+            console.log("usevido id", Videos)
+            if (user) {
+                const watchedVideos = user?.usersInfo?.ListOfWatchedVideos;
+                let newVideos = [...Videos]
+                for (let i = 0; i < watchedVideos.length; i++) {
+                    console.log("useVido", watchedVideos[i]);
+
+                    const currentIndex = Videos.findIndex((value, index, Videos) => value.videoid === watchedVideos[i])
+                    console.log("useVido", currentIndex);
+
+                    const updatedVidoes = {
+                        ...Videos[currentIndex],
+                        iswatched: true
+                    }
+                    newVideos = [...Videos]
+                    // console.log("usevidoNewfull", newVideos);
+
+                    newVideos[currentIndex].iswatched = true
+                    // console.log("usevidoNew", newVideos[currentIndex]);
+
+                }
+                setVideos(newVideos)
+                if (videos.length > 0) {
+                    console.log("useVido", videos);
+
+                }
+
+            }
+
+        }
+    }, [Videos, user]);
+
+
     const handleCurrentVideo = (index) => {
         setCurrentVideo(index);
-        setVideoId(videos[index].videoId);
+        setVideoId(videos[index].videoid);
 
     }
-    console.log("isloggedIn", isLoggedIn)
-    const handleThresholdReached = async (VideoData) => {
-        Videos[currentVideo].isWatched = true;
 
+    const handleThresholdReached = async (VideoData) => {
+        // console.log("fromThresHold", Videos[currentVideo].isWatched);
+        // Videos[currentVideo].isWatched = true;
 
         setVideos((prevVideos) =>
             prevVideos.map((video, i) =>
@@ -49,7 +87,7 @@ const VideoSection = () => {
         if (currentVideo < videos.length - 1) {
             const nextVideoIndex = currentVideo + 1; // Calculate the next video index
             setCurrentVideo(nextVideoIndex); // Update current video index
-            setVideoId(videos[nextVideoIndex].videoId); // Update videoId immediately
+            setVideoId(videos[nextVideoIndex].videoid); // Update videoId immediately
         }
     };
 
@@ -57,7 +95,7 @@ const VideoSection = () => {
         if (currentVideo > 0) {
             const prevVideoIndex = currentVideo - 1; // Calculate the previous video index
             setCurrentVideo(prevVideoIndex); // Update current video index
-            setVideoId(videos[prevVideoIndex].videoId); // Update videoId immediately
+            setVideoId(videos[prevVideoIndex].videoid); // Update videoId immediately
         }
     };
 
@@ -89,8 +127,8 @@ const VideoSection = () => {
                 <div className="bg-[#14171F]">
                     <div className="flex justify-between items-center p-4 md:h-auto h-[92px]">
                         <div className="flex gap-[12px]">
-                            <button onClick={()=>{handleSliderMenu(true)}} className="md:hidden inline-block"><RiMenuUnfold3Line size={24} color="white" /></button>
-                            <h2 className="md:w-auto w-[80%] md:text-xl font-gilroybold text-[#F8FAFC] md:text-[18px] md:leading-[32px] text-[16px] leading-[20px]">{Videos[currentVideo].title}</h2>
+                            <button onClick={() => { handleSliderMenu(true) }} className="md:hidden inline-block"><RiMenuUnfold3Line size={24} color="white" /></button>
+                            <h2 className="md:w-auto w-[80%] md:text-xl font-gilroybold text-[#F8FAFC] md:text-[18px] md:leading-[32px] text-[16px] leading-[20px]">{Videos[currentVideo]?.title}</h2>
                         </div>
                         <div className="flex gap-[20px]">
                             <button onClick={handlePrev} className="md:hidden inline-block"><FaChevronLeft className="text-[24px] text-[#FBBF24]" /></button>
@@ -114,3 +152,5 @@ const VideoSection = () => {
 };
 
 export default VideoSection;
+
+

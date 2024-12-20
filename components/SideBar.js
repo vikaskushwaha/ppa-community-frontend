@@ -14,7 +14,7 @@ function SideBar({ Videos, handleCurrentVideo, currentVideo, isOpenSlider, handl
         await fetchUsersTotalPoints();
 
     }
-    console.log(Videos)
+    // console.log(Videos)
     useEffect(() => {
         if (totalPoints) {
             setButtonTxt(`Total Points: ${totalPoints.TotalPoints} Points`)
@@ -24,9 +24,9 @@ function SideBar({ Videos, handleCurrentVideo, currentVideo, isOpenSlider, handl
 
     const no_of_watchedVidos = user?.usersInfo?.ListOfWatchedVideos || [];
     return (
-        <div className={`${isOpenSlider?'top-0 block h-dvh w-full rounded-e-0':'hidden'} md:block w-1/4 h-[100%] bg-[#292C33] md:rounded-e-[20px] p-4 md:relative absolute`} >
-            <div className="md:hidden block flex justify-end" onClick={()=>{handleSliderMenu(false)}}>
-                <MdClose className='text-[24px] mb-[22px]'/>
+        <div className={`${isOpenSlider ? 'top-0 block h-dvh w-full rounded-e-0' : 'hidden'} md:block w-1/4 h-[100%] bg-[#292C33] md:rounded-e-[20px] p-4 md:relative absolute`} >
+            <div className="md:hidden block flex justify-end" onClick={() => { handleSliderMenu(false) }}>
+                <MdClose className='text-[24px] mb-[22px]' />
             </div>
             <div className='flex justify-between'>
                 <h2 className="text-lg font-gilroybold mb-4 text-[16px] leading-[24px] tracking-wide text-[#ffffff]">{!no_of_watchedVidos ? `${0}` : `${no_of_watchedVidos.length}/111 Videos`}</h2>

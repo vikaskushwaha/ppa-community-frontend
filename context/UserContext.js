@@ -40,13 +40,19 @@ export function UserProvider({ children }) {
                 { name, email, phone },
                 { withCredentials: true },
             );
+
             if (response.data) {
                 console.log(response.data.newId);
 
                 localStorage.setItem('id', response.data.newId)
                 setLoggedIn(true)
             }
+            const dsaPlayList = await axios.get("http://localhost:2000/api/fetchDsaPlaylist")
+            if (dsaPlayList.data) {
+                console.log("fromLogin", dsaPlayList.data);
 
+                localStorage.setItem('dsaPlayList', JSON.stringify(dsaPlayList.data));
+            }
             fetchUserDetails()
 
         } catch (error) {
@@ -56,7 +62,6 @@ export function UserProvider({ children }) {
             setLoggedIn(false);
         }
     }
-
 
     async function logIn(email) {
         try {
@@ -70,6 +75,12 @@ export function UserProvider({ children }) {
                 localStorage.setItem('id', response.data.newId)
 
             }
+            const dsaPlayList = await axios.get("http://localhost:2000/api/fetchDsaPlaylist")
+            if (dsaPlayList.data) {
+                console.log("fromLogin", dsaPlayList.data);
+
+                localStorage.setItem('dsaPlayList', JSON.stringify(dsaPlayList.data));
+            }
             fetchUserDetails()
 
 
@@ -81,9 +92,20 @@ export function UserProvider({ children }) {
         }
     }
 
+    async function logOut() {
+        await axios.post('http://localhost:2000/auth/logOut',
+            {},
+            { withCredentials: true }
+
+        )
+        localStorage.clear();
+        setLoggedIn(false)
+        setUser(null)
+    }
+
 
     return (
-        <Authcontext.Provider value={{ user, setUser, isLoggedIn, setLoggedIn, signUp, logIn, setWatchedVidoId, loginError, signUpError, setEmailId }}>
+        <Authcontext.Provider value={{ user, setUser, isLoggedIn, setLoggedIn, signUp, logIn, setWatchedVidoId, loginError, signUpError, setEmailId, logOut }}>
             {children}
         </Authcontext.Provider>
     )
