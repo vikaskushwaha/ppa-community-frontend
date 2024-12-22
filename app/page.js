@@ -8,18 +8,19 @@ import VideoSection from "@/components/VideoSection";
 import WinSection from "@/components/WinSection";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
+import DummyVideoSection from "@/components/DummyVideoSection";
 export default function Home() {
   const { user, setUser, isLoggedIn, setLoggedIn } = useContext(Authcontext)
   console.log("user", user);
 
   return (
     <div className="flex flex-col w-full">
-      <Header/>
-      {isLoggedIn && user ? (<div> <VideoSection /> <RewardSystem />  <WinSection /></div>) : (<div> <CommunityBanner /> <RewardSystem /><VideoSection /> <WinSection /></div>)}
+      <Header />
+      {isLoggedIn && user ? (<div> <VideoSection /> <RewardSystem />  <WinSection /></div>) : (<div> <CommunityBanner /> <RewardSystem /><DummyVideoSection /> <WinSection /></div>)}
       {/* <CommunityBanner /> */}
       {/* {!isLoggedIn && <CommunityBanner />}
       // <RewardSystem /> */}
-      <Footer/>
+      <Footer />
     </div>
   );
 }
