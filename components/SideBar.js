@@ -51,7 +51,7 @@ function SideBar({ Videos, handleCurrentVideo, currentVideo, isOpenSlider, handl
                             <div
                                 className="flex items-center justify-center w-5 h-5 bg-gray-800 rounded-full cursor-pointer transition-all duration-300 hover:scale-105"
                             >
-                                {(video.isWatched) ? (
+                                {(video.iswatched) ? (
                                     <div className="flex items-center justify-center w-5 h-5 bg-green-500 rounded-full animate-scale-up">
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
