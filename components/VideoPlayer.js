@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState, memo } from 'react';
+import { useEffect, useRef, memo} from 'react';
 import YouTubePlayer from 'youtube-player';
 
 
@@ -16,10 +16,22 @@ const VideoPlayer = ({ videoId, onThresholdReached }) => {
   useEffect(() => {
     // Initialize the YouTube player
 
+    // Reset state when videoId changes
+    if (intervalIdRef.current) {
+      clearInterval(intervalIdRef.current);
+      intervalIdRef.current = null;
+    }
+
     watchedTimeRef.current = 0;
     lastTimeRef.current = 0;
     playbackRateRef.current = 1;
     isWatch70Ref.current = false;
+
+    // Destroy the previous player if it exists
+    if (playerRef.current) {
+      playerRef.current.destroy();
+      playerRef.current = null;
+    }
 
     const player = YouTubePlayer('video-player', {
       videoId,
@@ -66,7 +78,7 @@ const VideoPlayer = ({ videoId, onThresholdReached }) => {
         // Video is playing
         lastTimeRef.current = await player.getCurrentTime();
         if (!intervalIdRef.current && !isWatch70Ref.current) {
-          intervalIdRef.current = setInterval(trackProgress, 500); // Check progress every 500ms
+          intervalIdRef.current = setInterval(trackProgress, 1000); // Check progress every 500ms
         }
       } else if (event.data === 2 || event.data === 0) {
         // Video is paused or ended
