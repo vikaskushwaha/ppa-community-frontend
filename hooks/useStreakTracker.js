@@ -1,3 +1,4 @@
+import axiosInstance from "@/services/axiosInstance";
 import axios from "axios";
 
 export function useStreakTracker() {
@@ -6,9 +7,9 @@ export function useStreakTracker() {
 
 
         try {
-            const response = await axios.post("http://localhost:2000/api/videostreak",
-                {},
-                { withCredentials: true },
+            const response = await axiosInstance.post("http://localhost:2000/api/videostreak",
+
+
 
             )
             console.log(response.data);

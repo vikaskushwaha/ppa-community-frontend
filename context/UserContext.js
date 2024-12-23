@@ -1,4 +1,5 @@
 'use client'
+import axiosInstance from "@/services/axiosInstance";
 import axios from "axios";
 import { useContext, createContext, useState, useEffect, Children } from "react";
 export const Authcontext = createContext();
@@ -19,9 +20,7 @@ export function UserProvider({ children }) {
     async function fetchUserDetails() {
         try {
 
-            const response = await axios.get("http://localhost:2000/api/welcome", {
-                withCredentials: true,
-            })
+            const response = await axiosInstance.get("http://localhost:2000/api/welcome")
             console.log(response.data)
 
             if (response.data) {
@@ -37,9 +36,9 @@ export function UserProvider({ children }) {
 
     async function signUp(name, email, phone) {
         try {
-            const response = await axios.post("http://localhost:2000/auth/signup",
+            const response = await axiosInstance.post("http://localhost:2000/auth/signup",
                 { name, email, phone },
-                { withCredentials: true },
+
             );
 
             if (response.data) {
@@ -66,9 +65,9 @@ export function UserProvider({ children }) {
 
     async function logIn(email) {
         try {
-            const response = await axios.post("http://localhost:2000/auth/login",
+            const response = await axiosInstance.post("http://localhost:2000/auth/login",
                 { email },
-                { withCredentials: true },
+
             );
 
             if (response.data) {
@@ -76,7 +75,7 @@ export function UserProvider({ children }) {
                 localStorage.setItem('id', response.data.newId)
 
             }
-            const dsaPlayList = await axios.get("http://localhost:2000/api/fetchDsaPlaylist")
+            const dsaPlayList = await axiosInstance.get("http://localhost:2000/api/fetchDsaPlaylist")
             if (dsaPlayList.data) {
                 console.log("fromLogin", dsaPlayList.data);
 
@@ -94,16 +93,11 @@ export function UserProvider({ children }) {
     }
 
     async function logOut() {
-        await axios.post('http://localhost:2000/auth/logOut',
-            {},
-            { withCredentials: true }
-
-        )
+        await axiosInstance.post('http://localhost:2000/auth/logOut')
         localStorage.clear();
         setLoggedIn(false)
         setUser(null)
     }
-
 
     return (
         <Authcontext.Provider value={{ user, setUser, isLoggedIn, setLoggedIn, signUp, logIn, setWatchedVidoId, loginError, signUpError, setEmailId, logOut }}>

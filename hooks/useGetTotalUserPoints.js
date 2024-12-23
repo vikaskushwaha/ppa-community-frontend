@@ -1,16 +1,13 @@
+
+import axiosInstance from "@/services/axiosInstance";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 
 export function useGetUserPoints() {
     const [totalPoints, setTotalPoints] = useState(0);
     async function fetchUsersTotalPoints() {
-
-
-        const response = await axios("http://localhost:2000/api/getuserpoints", {
-            withCredentials: true,
-        })
-
+        const response = await axiosInstance.get("http://localhost:2000/api/getuserpoints")
         if (response.data) {
             setTotalPoints(response.data);
         }
@@ -18,3 +15,7 @@ export function useGetUserPoints() {
     }
     return { totalPoints, fetchUsersTotalPoints };
 }
+
+
+
+

@@ -1,3 +1,4 @@
+import axiosInstance from "@/services/axiosInstance";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -8,9 +9,8 @@ export function usePostWatchedVideos() {
         if (videoId) {
             console.log("VideoId form postWatched", videoId);
 
-            const response = await axios.post("http://localhost:2000/api/videoWatched",
-                { videoId },
-                { withCredentials: true }
+            const response = await axiosInstance.post("http://localhost:2000/api/videoWatched",
+                { videoId }
 
             )
             console.log("video has been sent", videoId);

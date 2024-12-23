@@ -12,7 +12,6 @@ function SideBar({ Videos, handleCurrentVideo, currentVideo, isOpenSlider, handl
 
     async function handleOnclick() {
         await fetchUsersTotalPoints();
-
     }
     // console.log(Videos)
     useEffect(() => {
