@@ -21,7 +21,7 @@ const VideoSection = () => {
 
     const [videos, setVideos] = useState([]);
     const [currentVideo, setCurrentVideo] = useState(0);
-    const [videoId, setVideoId] = useState(null);
+    const [videoId, setVideoId] = useState('Hu-EPelY7Yo');
     const [isOpenSlider, setIsOpenSlider] = useState(false);
     const videoSectionRef = useRef(null);
 
@@ -42,7 +42,8 @@ const VideoSection = () => {
     useEffect(() => {
         if (Videos?.length > 0) {
             setVideos(Videos);
-            setVideoId(Videos[0]?.videoid || null);
+            // setVideoId(Videos[0]?.videoid || null);
+            setVideoId('Hu-EPelY7Yo')
             if (user) updateWatchedVideos();
         }
     }, [Videos, user, updateWatchedVideos]);
@@ -68,23 +69,21 @@ const VideoSection = () => {
     // Video threshold reached
     const handleThresholdReached = async (VideoData) => {
         console.log("start sending watched video")
-        try {
-            setVideos((prevVideos) =>
-                prevVideos.map((video, i) =>
-                    i === currentVideo ? { ...video, iswatched: true } : video
-                )
-            );
-            await StreakTracker();
-            const response = await postWatchedVideo(VideoData);
-            if (response.success) { // Ensure backend confirms success
-                setWatchedVidoId(VideoData);
-            } else {
-                console.error("Failed to mark video as watched:", response);
-            }
-        } catch (error) {
-            console.error("Error posting watched video:", error);
-        }
-    };
+
+        setVideos((prevVideos) =>
+            prevVideos.map((video, i) =>
+                i === currentVideo ? { ...video, iswatched: true } : video
+            )
+        );
+        await StreakTracker();
+        await postWatchedVideo(VideoData);
+        console.log("videowatchedSend");
+        setWatchedVidoId(VideoData);
+    }
+
+
+
+
 
     // Slider menu handling
     const handleSliderMenu = useCallback((isTrue) => {

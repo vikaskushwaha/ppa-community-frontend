@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, memo } from 'react';
 import YouTubePlayer from 'youtube-player';
 
 
@@ -98,4 +98,4 @@ const VideoPlayer = ({ videoId, onThresholdReached }) => {
   );
 };
 
-export default VideoPlayer;
+export default memo(VideoPlayer);
