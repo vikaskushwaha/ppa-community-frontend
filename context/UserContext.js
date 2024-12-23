@@ -22,6 +22,7 @@ export function UserProvider({ children }) {
             const response = await axios.get("http://localhost:2000/api/welcome", {
                 withCredentials: true,
             })
+            console.log(response.data)
 
             if (response.data) {
                 setUser(response.data)

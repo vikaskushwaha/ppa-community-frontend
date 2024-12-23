@@ -78,7 +78,7 @@ const VideoSection = () => {
         console.log("videowatchedSend");
         setWatchedVidoId(VideoData);
     }
-    
+
     // Slider menu handling
     const handleSliderMenu = useCallback((isTrue) => {
         setIsOpenSlider(isTrue);
@@ -93,14 +93,6 @@ const VideoSection = () => {
 
     return (
         <div className="flex md:h-screen bg-[#14171F] py-[20px] text-white relative" ref={videoSectionRef}>
-            {/* {!isLoggedIn && (
-                <div className=" flex bg-transparent h-[100vh] w-[100vw] absolute  justify-center items-center "
-                    onClick={() => PopupToggle(true)}
-                >
-                    {toggle && (<SignUpLoggInPopup PopupToggle={PopupToggle} />)}
-
-                </div>
-            )} */}
             {/* Sidebar */}
             <SideBar Videos={videos} handleCurrentVideo={handleCurrentVideo} currentVideo={currentVideo} isOpenSlider={isOpenSlider} handleSliderMenu={handleSliderMenu} />
             {/* Main Content */}
