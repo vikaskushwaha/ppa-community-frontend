@@ -1,6 +1,6 @@
 'use client'
 import { FaChevronRight } from "react-icons/fa";
-import { useState, useEffect, useRef, useContext, useCallback } from "react";
+import { useState, useEffect, useRef, useContext, useCallback} from "react";
 import VideoPlayer from "./VideoPlayer.js";
 // import { FaArrowLeft } from 'react-icons/fa';
 import { RiMenuUnfold3Line } from "react-icons/ri";
@@ -42,8 +42,6 @@ const VideoSection = () => {
     useEffect(() => {
         if (Videos?.length > 0) {
             setVideos(Videos);
-            // setVideoId(Videos[0]?.videoid || null);
-            setVideoId('Hu-EPelY7Yo')
             if (user) updateWatchedVideos();
         }
     }, [Videos, user, updateWatchedVideos]);
@@ -68,7 +66,7 @@ const VideoSection = () => {
 
     // Video threshold reached
     const handleThresholdReached = async (VideoData) => {
-        console.log("start sending watched video")
+        console.log("start sending watched video",currentVideo)
 
         setVideos((prevVideos) =>
             prevVideos.map((video, i) =>
@@ -80,11 +78,7 @@ const VideoSection = () => {
         console.log("videowatchedSend");
         setWatchedVidoId(VideoData);
     }
-
-
-
-
-
+    
     // Slider menu handling
     const handleSliderMenu = useCallback((isTrue) => {
         setIsOpenSlider(isTrue);
