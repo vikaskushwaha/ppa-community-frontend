@@ -23,6 +23,8 @@ function SideBar({ Videos, handleCurrentVideo, currentVideo, isOpenSlider, handl
     }, [totalPoints])
 
     const no_of_watchedVidos = user?.usersInfo?.ListOfWatchedVideos || [];
+
+    const total_watchedVideos_percent = user?.usersInfo?.totalpercent || 0;
     return (
         <div className={`${isOpenSlider ? 'top-0 block h-dvh w-full rounded-e-0' : 'hidden'} md:block w-1/4 h-[100%] bg-[#292C33] md:rounded-e-[20px] p-4 md:relative absolute`} >
             <div className="md:hidden block flex justify-end" onClick={() => { handleSliderMenu(false) }}>
@@ -30,10 +32,10 @@ function SideBar({ Videos, handleCurrentVideo, currentVideo, isOpenSlider, handl
             </div>
             <div className='flex justify-between'>
                 <h2 className="text-lg font-gilroybold mb-4 text-[16px] leading-[24px] tracking-wide text-[#ffffff]">{!no_of_watchedVidos ? `${0}` : `${no_of_watchedVidos.length}/111 Videos`}</h2>
-                <p className='font-gilroyregular text-[#FFFFFF] text-[14px] leading-[20px] tracking-wide'>25% Completed</p>
+                <p className='font-gilroyregular text-[#FFFFFF] text-[14px] leading-[20px] tracking-wide'>{total_watchedVideos_percent}% Completed</p>
             </div>
             <div className="h-2 w-full bg-[#3A3C43] rounded">
-                <div className="h-2 bg-[#14171F] rounded" style={{ width: "50%" }}></div>
+                <div className="h-2 bg-[#14171F] rounded" style={{ width: `${total_watchedVideos_percent}%` }}></div>
             </div>
             <div className="space-y-4 mt-[20px] w-full md:h-[75%] h-[68%] pr-[12px] overflow-y-auto scrollbar-custom">
                 {Videos.map((video, index) => (

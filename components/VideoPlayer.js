@@ -7,6 +7,7 @@ import YouTubePlayer from 'youtube-player';
 const VideoPlayer = ({ videoId, onThresholdReached }) => {
 
   const playerRef = useRef(null);
+  const videoElementRef = useRef(null);
   const watchedTimeRef = useRef(0);
   const lastTimeRef = useRef(0);
   const playbackRateRef = useRef(1);
@@ -15,6 +16,11 @@ const VideoPlayer = ({ videoId, onThresholdReached }) => {
 
   useEffect(() => {
     // Initialize the YouTube player
+
+    if (!videoElementRef.current) {
+      console.error('Video player element not found');
+      return;
+    }
 
     // Reset state when videoId changes
     if (intervalIdRef.current) {
@@ -33,7 +39,7 @@ const VideoPlayer = ({ videoId, onThresholdReached }) => {
       playerRef.current = null;
     }
 
-    const player = YouTubePlayer('video-player', {
+    const player = YouTubePlayer(videoElementRef.current, {
       videoId,
       playerVars: { autoplay: 0, controls: 1 }, // Customize player options
     });
@@ -99,7 +105,7 @@ const VideoPlayer = ({ videoId, onThresholdReached }) => {
 
   return (
     <div
-      id="video-player"
+      ref={videoElementRef}
       style={{
         width: '100%',
         height: '100%',
