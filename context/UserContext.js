@@ -20,7 +20,7 @@ export function UserProvider({ children }) {
     async function fetchUserDetails() {
         try {
 
-            const response = await axiosInstance.get("http://localhost:2000/api/welcome")
+            const response = await axiosInstance.get("/api/welcome")
             console.log(response.data)
 
             if (response.data) {
@@ -36,7 +36,7 @@ export function UserProvider({ children }) {
 
     async function signUp(name, email, phone) {
         try {
-            const response = await axiosInstance.post("http://localhost:2000/auth/signup",
+            const response = await axiosInstance.post("/auth/signup",
                 { name, email, phone },
 
             );
@@ -47,7 +47,7 @@ export function UserProvider({ children }) {
                 localStorage.setItem('id', response.data.newId)
                 setLoggedIn(true)
             }
-            const dsaPlayList = await axios.get("http://localhost:2000/api/fetchDsaPlaylist")
+            const dsaPlayList = await axiosInstance.get("/api/fetchDsaPlaylist")
             if (dsaPlayList.data) {
                 console.log("fromLogin", dsaPlayList.data);
 
@@ -65,7 +65,7 @@ export function UserProvider({ children }) {
 
     async function logIn(email) {
         try {
-            const response = await axiosInstance.post("http://localhost:2000/auth/login",
+            const response = await axiosInstance.post("/auth/login",
                 { email },
 
             );
@@ -75,7 +75,7 @@ export function UserProvider({ children }) {
                 localStorage.setItem('id', response.data.newId)
 
             }
-            const dsaPlayList = await axiosInstance.get("http://localhost:2000/api/fetchDsaPlaylist")
+            const dsaPlayList = await axiosInstance.get("/api/fetchDsaPlaylist")
             if (dsaPlayList.data) {
                 console.log("fromLogin", dsaPlayList.data);
 
@@ -93,7 +93,7 @@ export function UserProvider({ children }) {
     }
 
     async function logOut() {
-        await axiosInstance.post('http://localhost:2000/auth/logOut')
+        await axiosInstance.post('/auth/logOut')
         localStorage.clear();
         setLoggedIn(false)
         setUser(null)

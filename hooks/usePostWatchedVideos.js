@@ -9,7 +9,7 @@ export function usePostWatchedVideos() {
         if (videoId) {
             console.log("VideoId form postWatched", videoId);
 
-            const response = await axiosInstance.post("http://localhost:2000/api/videoWatched",
+            const response = await axiosInstance.post("/api/videoWatched",
                 { videoId }
 
             )

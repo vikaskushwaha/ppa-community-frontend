@@ -7,11 +7,7 @@ export function useStreakTracker() {
 
 
         try {
-            const response = await axiosInstance.post("http://localhost:2000/api/videostreak",
-
-
-
-            )
+            const response = await axiosInstance.post("/api/videostreak")
             console.log(response.data);
         }
         catch (erro) {
