@@ -25,7 +25,7 @@ function SideBar({ Videos, handleCurrentVideo, currentVideo, isOpenSlider, handl
 
     const total_watchedVideos_percent = user?.usersInfo?.totalpercent || 0;
     return (
-        <div className={`${isOpenSlider ? 'top-0 block h-dvh w-full rounded-e-0' : 'hidden'} md:block w-1/4 h-[100%] bg-[#292C33] md:rounded-e-[20px] p-4 md:relative absolute`} >
+        <div className={`${isOpenSlider ? 'top-0 block h-dvh translate-x-0 w-full rounded-e-0' : 'md:translate-x-0 -translate-x-full md:visible invisible'} md:block w-1/4 h-[100%] bg-[#292C33] md:rounded-e-[20px] p-4 md:relative fixed transition-transform duration-300 ease-in-out`} >
             <div className="md:hidden block flex justify-end" onClick={() => { handleSliderMenu(false) }}>
                 <MdClose className='text-[24px] mb-[22px]' />
             </div>
