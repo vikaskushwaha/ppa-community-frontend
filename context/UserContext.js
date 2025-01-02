@@ -70,6 +70,7 @@ export function UserProvider({ children }) {
 
             );
 
+
             if (response.data) {
                 setLoggedIn(true);
                 localStorage.setItem('id', response.data.newId)

@@ -4,14 +4,12 @@ import axios from "axios";
 export function useStreakTracker() {
 
     async function StreakTracker() {
-
-
         try {
             const response = await axiosInstance.post("/api/videostreak")
             console.log(response.data);
         }
-        catch (erro) {
-            console.log(erro);
+        catch (error) {
+            console.log(error);
 
         }
 
