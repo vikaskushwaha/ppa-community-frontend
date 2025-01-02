@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <div className="flex flex-col w-full">
       <Header />
-      {isLoggedIn && user ? (<div> <VideoSection /> <RewardSystem />  <WinSection /></div>) : (<div> <CommunityBanner /> <RewardSystem /><DummyVideoSection /> <WinSection /></div>)}
+      {(isLoggedIn && user) ? (<div> <VideoSection /> <RewardSystem />  <WinSection /></div>) : (<div> <CommunityBanner /> <RewardSystem /><DummyVideoSection /> <WinSection /></div>)}
       {/* <CommunityBanner /> */}
       {/* {!isLoggedIn && <CommunityBanner />}
       // <RewardSystem /> */}

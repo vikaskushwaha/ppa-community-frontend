@@ -10,12 +10,14 @@ import SideBar from "./SideBar.js";
 import { usePostWatchedVideos } from "@/hooks/usePostWatchedVideos.js";
 import { Authcontext } from "@/context/UserContext.js";
 import { useStreakTracker } from "@/hooks/useStreakTracker.js";
+import UserBar from "./UserBar.js";
 // import SignUpLoggInPopup from "./SignupLoggInPopup.js";
 // import { usePopupToggle } from "@/hooks/usePopupToggle.js";
 
 const VideoSection = () => {
     const Videos = useVideo();
     const { setWatchedVidoId, isLoggedIn, user } = useContext(Authcontext);
+    // console.log(user)
     const { postWatchedVideo } = usePostWatchedVideos();
     const { StreakTracker } = useStreakTracker();
 
@@ -34,7 +36,6 @@ const VideoSection = () => {
                 iswatched: watchedVideos.includes(video.videoid),
             }));
             setVideos(updatedVideos);
-            // setVideoId(updatedVideos[0]?.videoid || null);
         }
     }, [Videos, user]);
 
@@ -50,6 +51,8 @@ const VideoSection = () => {
     const handleCurrentVideo = useCallback((index) => {
         setCurrentVideo(index);
         setVideoId(videos[index]?.videoid || null);
+        setIsOpenSlider(false);
+        document.body.style.overflow = 'auto';
     }, [videos]);
 
     const handleNext = useCallback(() => {
@@ -83,7 +86,7 @@ const VideoSection = () => {
     const handleSliderMenu = useCallback((isTrue) => {
         setIsOpenSlider(isTrue);
         document.body.style.overflow = isTrue ? 'hidden' : 'auto';
-        navigateToVideoSection();
+        // navigateToVideoSection();
     }, []);
 
     const navigateToVideoSection = useCallback(() => {
@@ -92,32 +95,35 @@ const VideoSection = () => {
 
 
     return (
-        <div className="flex md:h-screen bg-[#14171F] py-[20px] text-white relative" ref={videoSectionRef}>
-            {/* Sidebar */}
-            <SideBar Videos={videos} handleCurrentVideo={handleCurrentVideo} currentVideo={currentVideo} isOpenSlider={isOpenSlider} handleSliderMenu={handleSliderMenu} />
-            {/* Main Content */}
-            <div className="flex-1 flex flex-col">
-                {/* Header */}
-                <div className="bg-[#14171F]">
-                    <div className="flex justify-between items-center p-4 md:h-auto h-[92px]">
-                        <div className="flex gap-[12px]">
-                            <button onClick={() => { handleSliderMenu(true) }} className="md:hidden inline-block"><RiMenuUnfold3Line size={24} color="white" /></button>
-                            <h2 className="md:w-auto w-[80%] md:text-xl font-gilroybold text-[#F8FAFC] md:text-[18px] md:leading-[32px] text-[16px] leading-[20px]">{Videos[currentVideo]?.title}</h2>
-                        </div>
-                        <div className="flex gap-[20px]">
-                            <button onClick={handlePrev} className="md:hidden inline-block"><FaChevronLeft className="text-[24px] text-[#FBBF24]" /></button>
-                            <button onClick={handleNext} className="flex items-center justify-center gap-[4px] md:bg-[#FBBF24] bg-transparent w-fit md:px-9 md:py-3 rounded-[10px] text-[#020617] text-[16px] leading-[24px] font-gilroysemibold md:hover:bg-yellow-600">
-                                <span className="md:block hidden text-[#020617] text-[16px] leading-[24px] tracking-wide font-gilroysemibold text-nowrap">Next Video</span>
-                                <span><FaChevronRight className="md:text-[16px] text-[24px] md:text-[#020617] text-[#FBBF24]" /></span>
-                            </button>
+        <div className="bg-[#14171F] text-white relative" ref={videoSectionRef}>
+            <UserBar/>
+            <div className="flex md:h-screen py-[20px]">
+                {/* Sidebar */}
+                <SideBar Videos={videos} handleCurrentVideo={handleCurrentVideo} currentVideo={currentVideo} isOpenSlider={isOpenSlider} handleSliderMenu={handleSliderMenu} />
+                {/* Main Content */}
+                <div className="flex-1 flex flex-col">
+                    {/* Header */}
+                    <div className="bg-[#14171F]">
+                        <div className="flex justify-between items-center p-4 md:h-auto h-[92px]">
+                            <div className="flex gap-[12px]">
+                                <button onClick={() => { handleSliderMenu(true) }} className="md:hidden inline-block"><RiMenuUnfold3Line size={24} color="white" /></button>
+                                <h2 className="md:w-auto w-[80%] md:text-xl font-gilroybold text-[#F8FAFC] md:text-[18px] md:leading-[32px] text-[16px] leading-[20px]">{Videos[currentVideo]?.title}</h2>
+                            </div>
+                            <div className="flex gap-[20px]">
+                                <button onClick={handlePrev} className="md:hidden inline-block"><FaChevronLeft className="text-[24px] text-[#FBBF24]" /></button>
+                                <button onClick={handleNext} className="flex items-center justify-center gap-[4px] md:bg-[#FBBF24] bg-transparent w-fit md:px-9 md:py-3 rounded-[10px] text-[#020617] text-[16px] leading-[24px] font-gilroysemibold md:hover:bg-yellow-600">
+                                    <span className="md:block hidden text-[#020617] text-[16px] leading-[24px] tracking-wide font-gilroysemibold text-nowrap">Next Video</span>
+                                    <span><FaChevronRight className="md:text-[16px] text-[24px] md:text-[#020617] text-[#FBBF24]" /></span>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                {/* Video Player */}
-                <div className="md:flex-1 sm:h-[350px] h-[240px] flex items-center justify-center bg-[#14171F] rounded-[20px] pt-[12px] pr-[12px] pl-[20px]">
-                    <div className="w-[100%] h-[100%] bg-gray-700 flex items-center justify-center rounded-[20px] border border-[#94A3B8]">
-                        <VideoPlayer videoId={videoId} onThresholdReached={handleThresholdReached} />
+                    {/* Video Player */}
+                    <div className="md:flex-1 sm:h-[350px] h-[240px] flex items-center justify-center bg-[#14171F] rounded-[20px] pt-[12px] pr-[12px] pl-[20px]">
+                        <div className="w-[100%] h-[100%] bg-gray-700 flex items-center justify-center rounded-[20px] border border-[#94A3B8]">
+                            <VideoPlayer videoId={videoId} onThresholdReached={handleThresholdReached} />
+                        </div>
                     </div>
                 </div>
             </div>

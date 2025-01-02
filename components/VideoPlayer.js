@@ -39,10 +39,11 @@ const VideoPlayer = ({ videoId, onThresholdReached }) => {
       playerRef.current = null;
     }
 
-    const player = YouTubePlayer(videoElementRef.current, {
-      videoId,
-      playerVars: { autoplay: 0, controls: 1 }, // Customize player options
-    });
+    const timeoutId = setTimeout(() => {
+      const player = YouTubePlayer(videoElementRef.current, {
+        videoId,
+        playerVars: { autoplay: 0, controls: 1 },
+      });
 
     playerRef.current = player;
 
@@ -92,9 +93,11 @@ const VideoPlayer = ({ videoId, onThresholdReached }) => {
         intervalIdRef.current = null;
       }
     });
+  },500);
 
     // Cleanup on component unmount
     return () => {
+      clearTimeout(timeoutId);
       clearInterval(intervalIdRef.current);
       if (playerRef.current) {
         playerRef.current.destroy();
