@@ -1,6 +1,6 @@
 'use client'
 import { FaChevronRight } from "react-icons/fa";
-import { useState, useEffect, useRef, useContext, useCallback} from "react";
+import { useState, useEffect, useRef, useContext, useCallback } from "react";
 import VideoPlayer from "./VideoPlayer.js";
 // import { FaArrowLeft } from 'react-icons/fa';
 import { RiMenuUnfold3Line } from "react-icons/ri";
@@ -69,7 +69,7 @@ const VideoSection = () => {
 
     // Video threshold reached
     const handleThresholdReached = async (VideoData) => {
-        console.log("start sending watched video",currentVideo)
+        console.log("start sending watched video", currentVideo)
 
         setVideos((prevVideos) =>
             prevVideos.map((video, i) =>
@@ -96,7 +96,7 @@ const VideoSection = () => {
 
     return (
         <div className="bg-[#14171F] text-white relative" ref={videoSectionRef}>
-            <UserBar/>
+            <UserBar />
             <div className="flex md:h-screen py-[20px]">
                 {/* Sidebar */}
                 <SideBar Videos={videos} handleCurrentVideo={handleCurrentVideo} currentVideo={currentVideo} isOpenSlider={isOpenSlider} handleSliderMenu={handleSliderMenu} />

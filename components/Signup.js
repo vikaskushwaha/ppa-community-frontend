@@ -122,7 +122,7 @@ function SignupForm() {
                                 <p className='text-red-500 text-center'>{signUpError.response.data.error}</p>
                             )}
                             {loginError && !signedUp && (
-                                <p className='text-red-500 text-center'>{loginError.response.data.error}</p>
+                                <p className='text-red-500 text-center'>{loginError.response.data.message}</p>
                             )}
                             <Button type="submit" className="bg-[#3940A0] py-3 px-2 rounded-[0.625rem] text-white text-[1rem] leading-6 tracking-wide font-gilroybold flex justify-center gap-2 items-center"
                                 imageUrl={rockect}

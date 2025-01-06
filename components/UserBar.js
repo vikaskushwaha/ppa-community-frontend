@@ -4,9 +4,7 @@ import FireImg from '../public/resources/images/fire-img.svg'
 import Image from 'next/image';
 
 function UserBar() {
-  const { user } = useContext(Authcontext);
-
-
+  const { user, } = useContext(Authcontext);
   return (
     <div className='flex md:flex-row flex-col justify-between px-[12px] pt-[20px] md:gap-[0px] gap-[10px]'>
       <p className='md:relative left-[2%] font-gilroybold md:text-[40px] md:leading-[52px] text-[16px] leading-[20px] tracking-wide'>{`Hi, ${user.usersInfo.userName}`}</p>
