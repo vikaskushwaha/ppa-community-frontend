@@ -9,7 +9,7 @@ import { Authcontext } from '@/context/UserContext';
 function SignupForm() {
     const { signUp, logIn, signUpError, loginError, setEmailId } = useContext(Authcontext)
 
-    const [signedUp, setSignUp] = useState(true)
+    const [signedUp, setSignUp] = useState(false)
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
@@ -40,8 +40,9 @@ function SignupForm() {
 
         setSignUp(index)
     }
+    // console.log(signUpError.response.error);
     return (
-        <div className="md:mt-0 mt-[20px] flex justify-center rounded-[1.25rem] md:p-6 p-3 bg-[#292C33] sm:h-[456px] h-auto md:max-w-[498px] w-full">
+        <div className="md:mt-0 mt-[20px] flex justify-center rounded-[1.25rem] md:p-6 p-3 bg-[#292C33] md:h-[498px] h-auto md:max-w-[498px] w-full">
             <div className="flex flex-col gap-y-3 lg:w-full md:w-full w-full">
                 <div className="flex sm:w-[28.125rem] w-[17.75rem] justify-center mx-auto">
                     <div className="flex  flex-row rounded-[0.75rem] p-2 gap-x-0 bg-[#14171F] max-w-[19.75rem]">
@@ -122,7 +123,7 @@ function SignupForm() {
                                 <p className='text-red-500 text-center'>{signUpError.response.data.error}</p>
                             )}
                             {loginError && !signedUp && (
-                                <p className='text-red-500 text-center'>{loginError.response.data.error}</p>
+                                <p className='text-red-500 text-center'>{loginError.response.data.message}</p>
                             )}
                             <Button type="submit" className="bg-[#3940A0] py-3 px-2 rounded-[0.625rem] text-white text-[1rem] leading-6 tracking-wide font-gilroybold flex justify-center gap-2 items-center"
                                 imageUrl={rockect}

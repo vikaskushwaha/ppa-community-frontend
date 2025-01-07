@@ -42,7 +42,7 @@ export function UserProvider({ children }) {
             );
 
             if (response.data) {
-                console.log(response.data.newId);
+                // console.log(response.data.newId);
 
                 localStorage.setItem('id', response.data.newId)
                 setLoggedIn(true)

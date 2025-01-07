@@ -20,11 +20,11 @@ function HeaderForDesktop() {
         </Link>
       </div>
       <NavLinks />
-      {isLoggedIn && (
-        <div>
+      <div className='w-[200px]'>
+        {isLoggedIn && (
           <button className="text-[#3940A0] text-[16px] leading-[24px] tracking-wide font-gilroybold w-[134px] rounded-[10px] bg-[#F2F4FC] py-[12px]" onClick={handleLogOut}>Log Out</button>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   )
 }
