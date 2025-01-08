@@ -4,6 +4,8 @@ import Button from './Button';
 import Image from 'next/image';
 import rockect from '../public/resources/images/Rocket.svg'
 import { useContext, useState } from 'react';
+import 'react-phone-number-input/style.css'
+import { countryCodes } from "../constants/countryCodes";
 
 import { Authcontext } from '@/context/UserContext';
 function SignupForm() {
@@ -13,20 +15,27 @@ function SignupForm() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
+    const [countryCode, setCountryCode] = useState("+91");
 
     const handleNamechange = (e) => {
         setName(e.target.value)
     }
+
     const handleEmailchange = (e) => {
         setEmail(e.target.value)
     }
+    
     const handlePhonechange = (e) => {
         setPhone(e.target.value)
     }
 
+    const handleCountryChange = (e) => {
+        setCountryCode(e.target.value);
+    };
+
     async function handleSignUpSubmit(e) {
         e.preventDefault();
-        await signUp(name, email, phone)
+        await signUp({name, email, phone: `${countryCode}${phone}`})
     }
 
     async function handleLogInSubmit(e) {
@@ -36,11 +45,8 @@ function SignupForm() {
     }
 
     const toggleTab = (index) => {
-        console.log(index);
-
         setSignUp(index)
     }
-    // console.log(signUpError.response.error);
     return (
         <div className="md:mt-0 mt-[20px] flex justify-center rounded-[1.25rem] md:p-6 p-3 bg-[#292C33] md:h-[498px] h-auto md:max-w-[498px] w-full">
             <div className="flex flex-col gap-y-3 lg:w-full md:w-full w-full">
@@ -101,19 +107,39 @@ function SignupForm() {
                             </div>
                             {signedUp && (
                                 <div className="flex flex-col gap-2">
-                                    <label htmlFor="name" className="text-[1rem] font-gilroysemibold leading-6 tracking-wide text-white">
+                                    <label htmlFor="phone" className='text-[1rem] font-gilroysemibold leading-6 tracking-wide placeholder-[#E2E8F0] text-white '>
                                         WhatsApp Number
                                     </label>
-                                    <input
-                                        type="number"
-                                        id="phone"
-                                        value={phone}
-                                        name="phone"
-                                        className="bg-[#14171F] py-[0.625rem] px-5 rounded-[0.375rem] text-white placeholder:text-[1rem] placeholder:font-gilroyregular placeholder:leading-6  "
-                                        placeholder="Enter 10-digit number"
-                                        onChange={handlePhonechange}
-                                        required
-                                    />
+                                    <div className="flex items-center gap-3">
+                                        <div className=''>
+                                            <select
+                                              value={countryCode}
+                                              onChange={handleCountryChange}
+                                              className="bg-[#14171F] py-[0.625rem] px-5 rounded-[0.375rem] text-white placeholder:text-[1rem] placeholder:font-gilroyregular placeholder:leading-6 appearance-none w-[9rem] -z-1"
+                                              style={{ zIndex: -1 }}
+                                            >
+                                                {
+                                                    countryCodes.map((code) => {
+                                                        return (
+                                                            <option value={code.dial_code} key={code.code}>
+                                                                {code.emoji} {code.dial_code} {code.name}
+                                                            </option>
+                                                        );
+                                                    })
+                                                }
+                                            </select>
+                                        </div>
+                                        <input
+                                          type="tel"
+                                          id="phone"
+                                          value={phone}
+                                          name="phone"
+                                          className="bg-[#14171F] flex-grow py-[0.625rem] px-5 rounded-[0.375rem] text-white placeholder:text-[1rem] placeholder:font-gilroyregular placeholder:leading-6"
+                                          placeholder="Enter phone number"
+                                          onChange={handlePhonechange}
+                                          required
+                                        />
+                                    </div>
                                     <p className='font-gilroymedium text-[0.875rem] leading-5 tracking-wide text-white'>
                                         We have a strict no-spam policy
                                     </p>
