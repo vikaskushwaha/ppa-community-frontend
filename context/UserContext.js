@@ -34,11 +34,10 @@ export function UserProvider({ children }) {
         }
     }
 
-    async function signUp(name, email, phone) {
+    async function signUp({name, email, phone}) {
         try {
             const response = await axiosInstance.post("/auth/signup",
                 { name, email, phone },
-
             );
 
             if (response.data) {
