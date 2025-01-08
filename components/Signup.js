@@ -105,7 +105,7 @@ function SignupForm() {
                                         WhatsApp Number
                                     </label>
                                     <input
-                                        type="tel"
+                                        type="number"
                                         id="phone"
                                         value={phone}
                                         name="phone"
